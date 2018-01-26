@@ -13,15 +13,6 @@ class Matches extends Component {
     fetch(`http://localhost:3000/api/user/matches/${this.state.email}`)
       .then(buffer => buffer.json())
       .then(matches => {
-        const matchProfiles = matches.map(match => {
-          return fetch(`http://localhost:3000/api/user/profile/${match.email}`)
-          .then(buffer => buffer.json())
-          .then(match => match)
-        })
-        return Promise.all(matchProfiles)
-      })
-      .then(matches => {
-        matches.push({})
         console.log(matches)
         this.setState({matches: matches, loading: false})
       })
