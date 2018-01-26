@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Browser, Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
+import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
 import Form from './Form.js';
+
 
 
 class App extends Component {
 
   state = {
-    email: ''
+    email: 'pkcopley@gmail.com'
   }
 
   // componentDidMount = () => {
@@ -19,6 +20,7 @@ class App extends Component {
       <BrowserRouter>
       <div className="App">
       <h1>Loaded!</h1>
+      <NavBar />
           <Switch>
           <Route path="/form" component={Form} />
           </Switch>
@@ -33,8 +35,8 @@ class App extends Component {
 const NavBar = () => {
   return (
     <nav className="nav-bar">
-    <NavLink exact to ="/home" className="home">Home</NavLink><br/>
     <NavLink exact to ="/profile" className="home">Me</NavLink>
+    <NavLink exact to ="/home" className="home">Home</NavLink>
     
     </nav>
   )
