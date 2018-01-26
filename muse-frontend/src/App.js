@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
 import Form from './Form.js';
+import Matches from './Matches'
 
 
 
@@ -21,6 +22,7 @@ class App extends Component {
       <div className="App">
       <h1>Loaded!</h1>
       <NavBar />
+      <Matches/>
           <Switch>
           <Route path="/form" component={Form} />
           </Switch>
