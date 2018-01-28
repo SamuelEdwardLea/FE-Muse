@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
+import DropDownMenuSimpleExample from './Menu.js'
 
 
 
-class Form extends Component {
+class Form extends Component {  
 
   state = {
     name: '',
     ageRange: [],
     gender: '',
     genderPref: [],
-    Area: ''
+    Area: '',
+    test: false
   }
+
+
+
+  handler = (event) => { this.setState({ test: true }); }
+
 
   name = (event) => { this.setState({ name: event.target.value }) }
   genderChange = (event) => { this.setState({ gender: event.target.value }) }
@@ -63,6 +70,7 @@ else if (event.target.id === "max") this.setState({ ageRange: [this.state.ageRan
           <input type="number" id="max" onBlur={this.ageLimit.bind(this)} />
           </div>
 
+          <DropDownMenuSimpleExample action={this.handler.bind(this)}/>
 
           <div id="user-genderPref">
             <div className="dropdown">

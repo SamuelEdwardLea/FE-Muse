@@ -3,13 +3,13 @@ import './App.css';
 import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
 import Form from './Form.js';
 import Matches from './Matches'
-
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import MyAwesomeReactComponent from './MyAwesomeReactComponent';
 
 class App extends Component {
 
   state = {
-    email: 'pkcopley@gmail.com'
+    email: 'dj_sam_lea@hotmai.com'
   }
 
   // componentDidMount = () => {
@@ -18,9 +18,14 @@ class App extends Component {
 
   render() {
     return (
+      <MuiThemeProvider>
+          {/* <MyAwesomeReactComponent /> */}
       <BrowserRouter>
+
+    
       <div className="App">
       <h1>Loaded!</h1>
+      
       <NavBar />
       <Matches/>
           <Switch>
@@ -29,7 +34,7 @@ class App extends Component {
       </div>
     
       </BrowserRouter>
-  
+      </MuiThemeProvider>
     );
   }
 }
