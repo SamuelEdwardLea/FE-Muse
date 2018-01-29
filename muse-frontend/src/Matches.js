@@ -3,7 +3,7 @@ import Match from './Match'
 
 class Matches extends Component {
   state = {
-    email: 'pkcopley@gmail.com',
+    email: 'dj_sam_lea@hotmai.com',
     matches: [],
     currentMatch: 0,
     loading: true

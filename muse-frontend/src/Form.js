@@ -1,20 +1,57 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
+import DropDownMenuSimpleExample from './Menu.js';
+import RaisedButtonExampleSimple from './RaisedButtons.js';
+import AgeSlider from './ageSlider.js';
+import RadioButtonExampleSimple from './genderButtons.js';
+import TextFieldExampleSimple from './signupFields.js';
 
 
 
-class Form extends Component {
+class Form extends Component {  
 
   state = {
     name: '',
     ageRange: [],
     gender: '',
     genderPref: [],
-    Area: ''
+    Area: '',
+    test: false,
+    value: { min: 2, max: 10 }
   }
 
-  name = (event) => { this.setState({ name: event.target.value }) }
+
+
+  genderPrefHandler = (props) => { 
+    
+    if (!this.state.genderPref.includes(props.target.innerText)) {
+      this.setState({
+        genderPref: [...this.state.genderPref, props.target.innerText]
+      })
+    } else {
+      var array = this.state.genderPref;
+      var index = array.indexOf(props.target.innerText);
+      array.splice(index, 1);
+      this.setState({genderPref: array });
+    }
+
+  }
+
+  ageSlider = (event, props) => {
+    this.setState({
+      ageRange: [event.min, event.max]
+    })
+  }
+
+
+
+  name = (event) => { 
+    console.log('boo')
+    // this.setState({ name: event.target.value }) ;
+  }
+
+
   genderChange = (event) => { this.setState({ gender: event.target.value }) }
   location = (event) => { this.setState({ Area: event.target.value }) }
   ageLimit = (event) => {
@@ -43,36 +80,47 @@ else if (event.target.id === "max") this.setState({ ageRange: [this.state.ageRan
       <BrowserRouter>
         <section className="container">
           <form onSubmit={this.handleForm}>
-            <label id="user-name">Name</label>
+            {/* <label id="user-name">Name</label>
             <input type="text" id="userName" onBlur={this.name.bind(this)} />
+            <br /> */}
+
+            <TextFieldExampleSimple onChange={this.name.bind(this)}/>
+
             <br />
-            <br />
-            <div id="gender">
+
+
+            <RadioButtonExampleSimple />
+
+
+            {/* <div id="gender">
               <span className="checkmark">Male</span>
               <input type="radio" name="radio" value="male" onBlur={this.genderChange.bind(this)} />
               <span className="checkmark">Female</span>
               <input type="radio" name="radio" value="female" onBlur={this.genderChange.bind(this)} />
-            </div>
+            </div> */}
+
+
+
             <br />
             <br />
 
-          <div id="user-ageRange">
-          <label id="user-name">Min Age</label>
-          <input type="number" id="min" className="minimum" onBlur={this.ageLimit.bind(this)} />
-          <label id="user-name">Max Age</label>
-          <input type="number" id="max" onBlur={this.ageLimit.bind(this)} />
-          </div>
-
-
-          <div id="user-genderPref">
-            <div className="dropdown">
-              <button className="dropbtn">Gender Preference</button>
-              <div className="dropdown-content">
-                <a name="Male" onClick = {this.genderPreference.bind(this)}>Male</a>
-                <a name="Female" onClick={this.genderPreference.bind(this)}>Female</a>
-              </div>
+            <div className="age-slider">
+            <AgeSlider action={this.ageSlider.bind(this)} stater={this.state.genderPref.length}/>
             </div>
-          </div>
+
+            <br />
+            <br />
+
+       
+
+          <DropDownMenuSimpleExample action={this.genderPrefHandler.bind(this)}/>
+
+          <br />
+          <br />
+
+          <RaisedButtonExampleSimple />
+
+      
 
 
           <div id="user-area">
