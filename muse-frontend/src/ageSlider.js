@@ -14,14 +14,6 @@ class AgeSlider extends React.Component {
   }
 
   change = (event) => {console.log(event)}
-
-
-  //  click(){
-  //   this.handleOpacity();
-  //   this.props.onClick();
-  // }
-
-  // onChange={value => this.setState({ value })}
   
   render() {
     return (

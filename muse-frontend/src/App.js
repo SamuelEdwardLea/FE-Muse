@@ -40,7 +40,7 @@ class App extends Component {
       <NavBar />
       <Matches/>
           <Switch>
-          <Route path="/form" component={Form} />
+            <Route path="/form" component={Form} />
           </Switch>
       </div>
     
