@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background:linear-gradient(rgb(30, 42, 56), rgb(8, 14, 26)) ;
+  height: 100%
 }
 
 .App-logo {
@@ -21,6 +27,12 @@
 .App-intro {
   font-size: large;
 }
+
+body, html, #root {
+  width: 100%;
+  height: 100%;
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

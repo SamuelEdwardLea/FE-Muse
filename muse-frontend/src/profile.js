@@ -32,8 +32,6 @@ class Profile extends Component {
   }
 
 
-
-
   fetchUserProfile = (email) => {
     return fetch(`http://localhost:3000/api/user/profile/${email}`)
     .then(buffer => buffer.json())
@@ -56,12 +54,17 @@ class Profile extends Component {
       <div className="profilePage">
       <div className="header">
       <div className="headerPic">
+      <center>
       <object className="profilePic" data={this.state.userProfile.picture}>
         <img className="profilePic" src="https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170"/>
       </object>
+      </center>
+        <i onClick={this.handleDialogueToggle}className="material-icons" id="picBuild">build</i>
       </div>
       <div className="headerInfo">
+      <p className="labels">Name</p>
       <p className="userName">{this.state.userProfile.Name}</p>
+      <p className="labels">Age</p>      
       <p className="userAge">{this.state.userProfile.Age}</p>
       </div>
       </div>
@@ -72,7 +75,7 @@ class Profile extends Component {
         <div id="bioBuild"><i onClick={this.handleDialogueToggle}className="material-icons">build</i></div>
         </div>
       </article>
-      <h2 className="userEmail">{this.state.userProfile.Email}</h2>
+      <p className="userEmail">{this.state.userProfile.Email}</p>
       <RaisedButton
       label="Toggle Drawer"
       onClick={this.handleDrawerToggle}

@@ -43,16 +43,10 @@ getEmail =  (email) => {
       <h1>Loaded!</h1>
       <NavBar />
           <Switch>
-         <Route exact path="/" render={(routeProps)=> {
-            return (
-              <Home getEmail={this.getEmail} {...routeProps}/>
-              )
-            }} 
-            />
+          <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} {...routeProps}/> }}/>
           <Route path="/home" component={Home} />
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
-        
-            <Route path="/form" render={(routeProps)=> {
+          <Route path="/form" render={(routeProps)=> {
             return (
               <Form email={this.state.email} {...routeProps}/>
               )
