@@ -2,25 +2,33 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import DropDownMenuSimpleExample from './Menu.js';
-import RaisedButtonExampleSimple from './RaisedButtons.js';
 import AgeSlider from './ageSlider.js';
-import RadioButtonExampleSimple from './genderButtons.js';
-import TextFieldExampleSimple from './signupFields.js';
+
+import TextField from 'material-ui/TextField';
+
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+
+import RaisedButton from 'material-ui/RaisedButton';
+import {deepOrange500} from 'material-ui/styles/colors';
+import {orange500} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
 
 class Form extends Component {  
 
   state = {
+    email: this.props.email,
     name: '',
+    age: 0,
     ageRange: [],
     gender: '',
     genderPref: [],
-    Area: '',
-    test: false,
-    value: { min: 2, max: 10 }
+    area: ''
   }
-
 
 
   genderPrefHandler = (props) => { 
@@ -35,31 +43,29 @@ class Form extends Component {
       array.splice(index, 1);
       this.setState({genderPref: array });
     }
-
   }
 
-  ageSlider = (event, props) => {
+  ageSlider = (event) => {
     this.setState({
       ageRange: [event.min, event.max]
     })
   }
 
-
-
   name = (event) => { 
-    console.log('boo')
-    // this.setState({ name: event.target.value }) ;
+    this.setState({ name: event.target.value }) ;
+  }
+  
+  age = (event) => { 
+    this.setState({ age: +event.target.value }) ;
+  }
+
+  area = (event) => { 
+    this.setState({ area: event.target.value.toLowerCase() }) ;
   }
 
 
-  genderChange = (event) => { this.setState({ gender: event.target.value }) }
-  location = (event) => { this.setState({ Area: event.target.value }) }
-  ageLimit = (event) => {
-    if (event.target.value < 18) event.target.className = 'invalid'
-    else if (event.target.value > 100) event.target.className = 'invalid'
-    else event.target.className = 'valid'
-if (event.target.id === "min") this.setState({ageRange: [event.target.value, this.state.ageRange[1]]})
-else if (event.target.id === "max") this.setState({ ageRange: [this.state.ageRange[0], event.target.value]})
+  genderChange = (event) => { 
+    this.setState({ gender: event.target.value }) 
   }
 
   genderPreference = (event) => {
@@ -71,70 +77,134 @@ else if (event.target.id === "max") this.setState({ ageRange: [this.state.ageRan
   }
 
   validateForm = () => {
-    
+    console.log('getting here!', this.state.email)
+   return fetch(`http://localhost:3000/api/user/profile/${this.state.email}`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'PATCH',
+    body: JSON.stringify({
+      Email: this.state.email,
+      Name: this.state.name,
+      AgeRange: this.state.ageRange,
+      Gender: this.state.gender,
+      GenderPref: this.state.genderPref,
+      Area: this.state.area,
+      Age: this.state.age,
+    })
+  })
+  .catch(console.log)
   }
 
 
   render() {
+
+    const styles = {
+      block: {
+        maxWidth: 250,
+      },
+      radioButton: {
+        marginBottom: 16,
+      },
+    };
+
+    const buttonStyle = {
+      margin: 12,
+    };
+    
+    
+    const muiTheme = getMuiTheme({
+      palette: {
+        primary1Color: orange500,
+        accent1Color: deepOrange500
+        
+      }
+    });
+
     return (
       <BrowserRouter>
         <section className="container">
-          <form onSubmit={this.handleForm}>
-            {/* <label id="user-name">Name</label>
-            <input type="text" id="userName" onBlur={this.name.bind(this)} />
-            <br /> */}
+          <form>
 
-            <TextFieldExampleSimple onChange={this.name.bind(this)}/>
+      <div>
+      <TextField
+            errorText={(this.state.name.match(/[0-9]/g)) ? "NO!" : null}     
+      type="text"
+        hintText="eg. David"
+        floatingLabelText="Your name"
+        onBlur={this.name.bind(this)}
+      /><br />
+      </div>
 
             <br />
 
+            <div>
+            <TextField
+errorText={(this.state.name.match(/[0-9]/g)) ? "NO!" : null}
+        hintText="eg. Manchester, London, Paris etc."
+        floatingLabelText="Your location"
+        onBlur={this.area.bind(this)}
+      /><br />
+      </div>
 
-            <RadioButtonExampleSimple />
+      <div>
+            <TextField
+        hintText="eg. 25"
+        floatingLabelText="Your Age"
+        onBlur={this.age.bind(this)}
+      /><br />
+      </div>
 
-
-            {/* <div id="gender">
-              <span className="checkmark">Male</span>
-              <input type="radio" name="radio" value="male" onBlur={this.genderChange.bind(this)} />
-              <span className="checkmark">Female</span>
-              <input type="radio" name="radio" value="female" onBlur={this.genderChange.bind(this)} />
-            </div> */}
-
+            <div>
+    <RadioButtonGroup name="shipSpeed" defaultSelected="not_light" onChange={this.genderChange.bind(this)}>
+      <RadioButton
+        value="Woman"
+        label="Woman"
+        checkedIcon={<ActionFavorite style={{color: '#F44336'}} />}
+        uncheckedIcon={<ActionFavoriteBorder />}
+        style={styles.radioButton}
+        labelStyle={{position: 'relative', right: '300px'}}
+        
+      />
+      <RadioButton
+        value="Man"
+        label="Man"
+        checkedIcon={<ActionFavorite style={{color: '#F44336'}} />}
+        uncheckedIcon={<ActionFavoriteBorder />}
+        style={styles.radioButton}
+        labelStyle={{position: 'relative', right: '300px'}}        
+      />
+    </RadioButtonGroup>
+    </div>
 
 
             <br />
             <br />
 
             <div className="age-slider">
-            <AgeSlider action={this.ageSlider.bind(this)} stater={this.state.genderPref.length}/>
+            <AgeSlider action={this.ageSlider.bind(this)}/>
             </div>
 
             <br />
             <br />
-
-       
 
           <DropDownMenuSimpleExample action={this.genderPrefHandler.bind(this)}/>
 
           <br />
           <br />
 
-          <RaisedButtonExampleSimple />
-
-      
-
-
-          <div id="user-area">
-          <label id="user-name">City</label>
-          <input type="text" id="location" onBlur={this.location.bind(this)} />
-          </div>
+          <div>
+  <MuiThemeProvider muiTheme={muiTheme}>
+    <RaisedButton label="Submit" secondary={true} style={buttonStyle}  onClick={this.validateForm.bind(this)} disabled={(this.state.name.length > 0 && this.state.age > 17 && this.state.area.length > 0 && this.state.gender.length > 0 && this.state.genderPref.length > 0) ? false : true}/> 
+  </MuiThemeProvider>
+  </div>
 
           <br />
           <br />
 
 
-          <div id="button">
-            <button type="submit" disabled="true" onClick={this.validateForm.bind(this)}>Submit</button>
-          </div>
+     
           </form>
         </section>
       </BrowserRouter>

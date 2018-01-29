@@ -20,19 +20,22 @@ const muiTheme = getMuiTheme(lightBaseTheme);
 class App extends Component {
 
   state = {
-    email: 'dj_sam_lea@hotmai.com'
+    email: ''
   }
 
-  // componentDidMount = () => {
-
-  // }
+getEmail =  (email) => {
+  this.setState({
+    email: email
+  })
+}
 
 
   render() {
+    
     return (
 
       <MuiThemeProvider muiTheme={muiTheme}>
-          {/* <MyAwesomeReactComponent /> */}
+
       <BrowserRouter>
 
     
@@ -40,9 +43,22 @@ class App extends Component {
       <h1>Loaded!</h1>
       <NavBar />
           <Switch>
-          <Route path="/form" component={Form} />
+         <Route exact path="/" render={(routeProps)=> {
+            return (
+              <Home getEmail={this.getEmail} {...routeProps}/>
+              )
+            }} 
+            />
           <Route path="/home" component={Home} />
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
+        
+            <Route path="/form" render={(routeProps)=> {
+            return (
+              <Form email={this.state.email} {...routeProps}/>
+              )
+            }} 
+           />
+
 
           </Switch>
       </div>

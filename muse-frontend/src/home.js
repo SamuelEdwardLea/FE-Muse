@@ -4,7 +4,14 @@ import Matches from './Matches'
 
 class Home extends Component {
 
+  componentDidMount = () => {
+    console.log(this.props);
+    let currentEmail = this.props.location.search.slice(7);
+    this.props.getEmail(currentEmail);
+  }
+
   render() {
+    
     return (
       <div>
       <Matches/>

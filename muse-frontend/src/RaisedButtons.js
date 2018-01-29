@@ -23,15 +23,9 @@ const muiTheme = getMuiTheme({
 
 
 const RaisedButtonExampleSimple = (props) => (
-
-
-  
   <div>
   <MuiThemeProvider muiTheme={muiTheme}>
-    <RaisedButton label="Default" style={style} primary={true}/>
-    <RaisedButton label="Primary" primary={true} style={style} />
-    <RaisedButton label="Secondary" secondary={true} style={style} />
-    <RaisedButton label="Disabled" disabled={true} style={style} />
+    <RaisedButton label="Submit" secondary={true} style={style} disabled={true}/>
     <br />
     <br />
     {/* <RaisedButton label="Full width" fullWidth={true} /> */}
