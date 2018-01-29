@@ -3,7 +3,7 @@ import Match from './Match'
 
 class Matches extends Component {
   state = {
-    email: 'pkcopley@gmail.com',
+    email: 'anat62442@hotmail.co.uk',
     matches: [],
     currentMatch: 0,
     loading: true
@@ -39,10 +39,6 @@ class Matches extends Component {
       })
     })
     .then(buffer => {
-      console.log('hi')
-      console.log(buffer)
-    })
-    .then(res => {
       this.setState({currentMatch: this.state.currentMatch + 1})
     })
     .catch(console.log)
