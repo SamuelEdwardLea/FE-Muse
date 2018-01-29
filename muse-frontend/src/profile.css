@@ -46,9 +46,23 @@ align-items: center
     margin-top: 2%
 }
 
-.material-icons{
+#menuBuild{
     padding-left: 25%;
     padding-top: 3%;
     position: fixed;
 
+}
+
+#bioBuild {
+    text-align: end;
+    padding-right: 2%;
+    position: absolute;
+    right: 0;
+    bottom: 0
+
+}
+
+.bioText {
+    padding-right: 3%;
+    position: relative;
 }

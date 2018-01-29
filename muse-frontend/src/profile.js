@@ -58,7 +58,10 @@ class Profile extends Component {
       </div>
       <div className="userBody">
       <article className="bio">
+      <div className="bioText">
         {this.state.userProfile.Bio}
+        <div id="bioBuild"><i onClick={this.changeUserDetails}className="material-icons">build</i></div>
+        </div>
       </article>
       <h2 className="userEmail">{this.state.userProfile.Email}</h2>
       <RaisedButton
@@ -66,7 +69,7 @@ class Profile extends Component {
       onClick={this.handleToggle}
       />
       <Drawer open={this.state.open}>
-        <MenuItem className="aboutLabel">About<i onClick={this.changeUserDetails} className="material-icons">build</i></MenuItem>
+        <MenuItem className="aboutLabel">About<i id="menuBuild" onClick={this.changeUserDetails} className="material-icons">build</i></MenuItem>
         <MenuItem><strong>Gender</strong> </MenuItem>
         <Divider/>
         <MenuItem>{this.state.userProfile.Gender}</MenuItem>
