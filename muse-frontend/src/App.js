@@ -3,6 +3,8 @@ import './App.css';
 import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
 import Form from './Form.js';
 import Matches from './Matches'
+import Home from './home'
+import Profile from './profile'
 
 // import MyAwesomeReactComponent from './MyAwesomeReactComponent';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -36,11 +38,12 @@ class App extends Component {
     
       <div className="App">
       <h1>Loaded!</h1>
-      
       <NavBar />
-      <Matches/>
           <Switch>
           <Route path="/form" component={Form} />
+          <Route path="/home" component={Home} />
+          <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
+
           </Switch>
       </div>
     
