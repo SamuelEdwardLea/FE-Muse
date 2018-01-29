@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import DropDownMenuSimpleExample from './Menu.js';
-import RaisedButtonExampleSimple from './RaisedButtons.js';
 import AgeSlider from './ageSlider.js';
 
 import TextField from 'material-ui/TextField';
@@ -10,8 +9,6 @@ import TextField from 'material-ui/TextField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-
-/* Buttons */
 
 import RaisedButton from 'material-ui/RaisedButton';
 import {deepOrange500} from 'material-ui/styles/colors';
@@ -24,12 +21,13 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 class Form extends Component {  
 
   state = {
+    email: 'megan.field@hotmail.co.uk',
     name: '',
+    age: 0,
     ageRange: [],
     gender: '',
     genderPref: [],
-    area: '',
-    invalid: true
+    area: ''
   }
 
 
@@ -47,7 +45,7 @@ class Form extends Component {
     }
   }
 
-  ageSlider = (event, props) => {
+  ageSlider = (event) => {
     this.setState({
       ageRange: [event.min, event.max]
     })
@@ -55,6 +53,10 @@ class Form extends Component {
 
   name = (event) => { 
     this.setState({ name: event.target.value }) ;
+  }
+  
+  age = (event) => { 
+    this.setState({ age: +event.target.value }) ;
   }
 
   area = (event) => { 
@@ -75,7 +77,24 @@ class Form extends Component {
   }
 
   validateForm = () => {
-    
+    console.log('getting here!', this.state.email)
+   return fetch(`http://localhost:3000/api/user/profile/${this.state.email}`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'PATCH',
+    body: JSON.stringify({
+      Email: this.state.email,
+      Name: this.state.name,
+      AgeRange: this.state.ageRange,
+      Gender: this.state.gender,
+      GenderPref: this.state.genderPref,
+      Area: this.state.area,
+      Age: this.state.age,
+    })
+  })
+  .catch(console.log)
   }
 
 
@@ -129,7 +148,13 @@ errorText={(this.state.name.match(/[0-9]/g)) ? "NO!" : null}
       /><br />
       </div>
 
-            {/* <RadioButtonExampleSimple /> */}
+      <div>
+            <TextField
+        hintText="eg. 25"
+        floatingLabelText="Your Age"
+        onBlur={this.age.bind(this)}
+      /><br />
+      </div>
 
             <div>
     <RadioButtonGroup name="shipSpeed" defaultSelected="not_light" onChange={this.genderChange.bind(this)}>
@@ -169,11 +194,9 @@ errorText={(this.state.name.match(/[0-9]/g)) ? "NO!" : null}
           <br />
           <br />
 
-          {/* <RaisedButtonExampleSimple /> */}
-
           <div>
   <MuiThemeProvider muiTheme={muiTheme}>
-    <RaisedButton label="Submit" secondary={true} style={buttonStyle} onClick={this.validateForm.bind(this)} disabled={(this.state.name.length > 0 && this.state.area.length > 0 && this.state.gender.length > 0 && this.state.genderPref.length > 0)}/>
+    <RaisedButton label="Submit" secondary={true} style={buttonStyle}  onClick={this.validateForm.bind(this)} disabled={(this.state.name.length > 0 && this.state.age > 17 && this.state.area.length > 0 && this.state.gender.length > 0 && this.state.genderPref.length > 0) ? false : true}/> 
   </MuiThemeProvider>
   </div>
 

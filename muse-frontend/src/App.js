@@ -18,7 +18,7 @@ const muiTheme = getMuiTheme(lightBaseTheme);
 class App extends Component {
 
   state = {
-    email: 'dj_sam_lea@hotmai.com'
+    email: 'megan.field@hotmail.co.uk'
   }
 
   // componentDidMount = () => {
