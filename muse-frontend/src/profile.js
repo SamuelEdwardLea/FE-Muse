@@ -52,6 +52,13 @@ class Profile extends Component {
   return this.state.loading ? (<p> loading.... </p>) :
     (
       <div className="profilePage">
+      <div className="titleContainer">
+      <p className="title">Account Overview</p>
+      <RaisedButton
+      label="Edit"
+      onClick={this.handleDrawerToggle}
+      />
+      </div>
       <div className="header">
       <div className="headerPic">
       <center>
@@ -76,10 +83,7 @@ class Profile extends Component {
         </div>
       </article>
       <p className="userEmail">{this.state.userProfile.Email}</p>
-      <RaisedButton
-      label="Toggle Drawer"
-      onClick={this.handleDrawerToggle}
-      />
+  
       <Drawer open={this.state.draweropen}>
         <MenuItem className="aboutLabel">About<i id="menuBuild" onClick={this.changeUserDetails} className="material-icons">build</i></MenuItem>
         <MenuItem><strong>Gender</strong> </MenuItem>

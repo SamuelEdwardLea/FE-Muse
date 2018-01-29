@@ -118,3 +118,18 @@
     border-bottom: 1px solid grey;
     width:100%
 }
+
+.title{
+    border-bottom: 1px solid grey;
+    width: 100%;
+    font-size: 3rem;
+    color: rgb(27, 27, 27);
+}
+
+.titleContainer {
+    width: 100%;
+}
+
+#editBtn {
+    height: 200px;
+}
