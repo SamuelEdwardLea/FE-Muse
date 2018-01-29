@@ -10,7 +10,8 @@ import Divider from 'material-ui/Divider'
 class Profile extends Component {
   state = {
     userProfile: '',
-    open: false,
+    draweropen: false,
+    dialogueopen: false,
     loading: true
   }
 
@@ -18,11 +19,19 @@ class Profile extends Component {
     this.fetchUserProfile(this.props.email)
   }
 
-  handleToggle = () => {
+  handleDrawerToggle = () => {
     this.setState({
-      open: !this.state.open
+      draweropen: !this.state.draweropen
     })
   }
+
+  handleDialogueToggle = () => {
+    this.setState({
+      dialogueopen: !this.state.dialogueopen
+    })
+  }
+
+
 
 
   fetchUserProfile = (email) => {
@@ -60,15 +69,15 @@ class Profile extends Component {
       <article className="bio">
       <div className="bioText">
         {this.state.userProfile.Bio}
-        <div id="bioBuild"><i onClick={this.changeUserDetails}className="material-icons">build</i></div>
+        <div id="bioBuild"><i onClick={this.handleDialogueToggle}className="material-icons">build</i></div>
         </div>
       </article>
       <h2 className="userEmail">{this.state.userProfile.Email}</h2>
       <RaisedButton
       label="Toggle Drawer"
-      onClick={this.handleToggle}
+      onClick={this.handleDrawerToggle}
       />
-      <Drawer open={this.state.open}>
+      <Drawer open={this.state.draweropen}>
         <MenuItem className="aboutLabel">About<i id="menuBuild" onClick={this.changeUserDetails} className="material-icons">build</i></MenuItem>
         <MenuItem><strong>Gender</strong> </MenuItem>
         <Divider/>
