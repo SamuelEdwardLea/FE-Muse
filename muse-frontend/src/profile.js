@@ -53,7 +53,7 @@ class Profile extends Component {
     (
       <div className="profilePage">
       <div className="titleContainer">
-      <p className="title">Account Overview</p>
+      <p className="title">Your Profile</p>
       <RaisedButton
       label="Edit"
       onClick={this.handleDrawerToggle}
@@ -85,11 +85,11 @@ class Profile extends Component {
       <p className="userEmail">{this.state.userProfile.Email}</p>
   
       <Drawer open={this.state.draweropen}>
-        <MenuItem className="aboutLabel">About<i id="menuBuild" onClick={this.changeUserDetails} className="material-icons">build</i></MenuItem>
+        <MenuItem className="aboutLabel" style={{color: '#1db954'}}><strong>About</strong><i id="menuBuild" onClick={this.changeUserDetails} className="material-icons">build</i></MenuItem>
         <MenuItem><strong>Gender</strong> </MenuItem>
         <Divider/>
         <MenuItem>{this.state.userProfile.Gender}</MenuItem>
-        <MenuItem><strong> Your preferences</strong></MenuItem>
+        <MenuItem><strong>Account Overview</strong></MenuItem>
         <MenuItem>{this.state.userProfile.GenderPreference.reduce((acc, item)  => {
           { acc.push(`${item}`)
           return acc;}}, []).join(' | ')}</MenuItem>
