@@ -3,8 +3,17 @@ import './App.css';
 import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
 import Form from './Form.js';
 import Matches from './Matches'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 // import MyAwesomeReactComponent from './MyAwesomeReactComponent';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
+
+const muiTheme = getMuiTheme(lightBaseTheme);
+
+
+
+  
 
 class App extends Component {
 
@@ -16,9 +25,11 @@ class App extends Component {
 
   // }
 
+
   render() {
     return (
-      <MuiThemeProvider>
+
+      <MuiThemeProvider muiTheme={muiTheme}>
           {/* <MyAwesomeReactComponent /> */}
       <BrowserRouter>
 
