@@ -21,7 +21,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 class Form extends Component {  
 
   state = {
-    email: 'megan.field@hotmail.co.uk',
+    email: this.props.email,
     name: '',
     age: 0,
     ageRange: [],
