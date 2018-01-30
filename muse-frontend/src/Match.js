@@ -180,16 +180,6 @@ class Match extends React.Component {
         </div>
 
 
-
-
-
-
-
-
-
-    
-      // // </div> */}
-
     )
   }
 
