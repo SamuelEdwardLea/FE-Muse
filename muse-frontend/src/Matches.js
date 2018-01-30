@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import Match from './Match'
+import Match from './Match';
+
 
 class Matches extends Component {
   state = {
-    email: 'anat62442@hotmail.co.uk',
+    email: 'dj_sam_lea@hotmai.com',
     matches: [],
     currentMatch: 0,
     loading: true
@@ -19,9 +20,11 @@ class Matches extends Component {
   }
 
   render() {
+    console.log(this.state.matches)
     return (
       <div>
-        {!this.state.loading ? <Match rateMatch={this.rateMatch} match={this.state.matches[this.state.currentMatch]}/> : <p>Loading...</p>}
+  {!this.state.loading ? <Match rateMatch={this.rateMatch} match={this.state.matches[this.state.currentMatch]}/> : 
+        <p>Loading...</p>}
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
 import Form from './Form.js';
-import Matches from './Matches'
+// import Matches from './Matches'
 import Home from './home'
 import Profile from './profile'
 
@@ -40,7 +40,7 @@ getEmail =  (email) => {
 
     
       <div className="App">
-      <h1>Loaded!</h1>
+
       <NavBar />
           <Switch>
          <Route exact path="/" render={(routeProps)=> {
@@ -49,7 +49,6 @@ getEmail =  (email) => {
               )
             }} 
             />
-          <Route path="/home" component={Home} />
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
         
             <Route path="/form" render={(routeProps)=> {
@@ -73,7 +72,7 @@ const NavBar = () => {
   return (
     <nav className="nav-bar">
     <NavLink exact to ="/profile" className="home">Me</NavLink>
-    <NavLink exact to ="/home" className="home">Home</NavLink>
+    <NavLink exact to ="/" className="home"><img src="https://image.flaticon.com/icons/svg/89/89560.svg" style={{height: '10vh', width: 'auto'}}></img></NavLink>
     
     </nav>
   )
