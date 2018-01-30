@@ -98,7 +98,7 @@ class  Match extends React.Component {
       
 
 
-    <div id='card' style={{ position: 'relative', transform: `translate3d(${this.state.x}px ${this.state.y}px, 0px)`}}>
+    <div id='card' style={{ margin: 'auto', backgroundColor: 'yellow', position: 'absolute', transform: `translate3d(${this.state.x}px, ${this.state.y}px, 0px)`}}>
 
 
 
@@ -115,7 +115,7 @@ class  Match extends React.Component {
           src={match.picture}
           onError={this.defaultImg} 
           size={240}
-          style={{marginLeft: '70px', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)'}}
+          style={{pointerEvents: 'none', marginLeft: '70px', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)'}}
 
         />
       }
@@ -131,19 +131,19 @@ class  Match extends React.Component {
       </div>
 
 <div className="cresc-left" style={{gridColumn: '1',
-      gridRow: '6'}}>
+      gridRow: '6', draggable: "false"}}>
  
- <input type="image" src="https://image.flaticon.com/icons/svg/222/222778.svg" onClick={() => rateMatch('accepted')} style={{height: '8vh', width: 'auto'}}   />
+ <input type="image" src="https://image.flaticon.com/icons/svg/222/222778.svg" onClick={() => rateMatch('rejection')} style={{height: '8vh', width: 'auto'}}   />
       </div>
 
 <div className="treble-clef" style={{gridColumn: '2/4',
       gridRow: '6'}}>
-      <img src="https://image.flaticon.com/icons/svg/222/222765.svg" style={{height: '8vh', width: 'auto'}} />      
+      <img src="https://image.flaticon.com/icons/svg/222/222765.svg" style={{height: '8vh', width: 'auto', draggable: "false"}} />      
       </div>
 
 <div className="cresc-right" style={{gridColumn: '4',
       gridRow: '6'}}>
-      <input type="image" src="https://image.flaticon.com/icons/svg/222/222777.svg" onClick={() => rateMatch('accepted')} style={{height: '8vh', width: 'auto'}}/>
+      <input type="image" src="https://image.flaticon.com/icons/svg/222/222777.svg" onClick={() => rateMatch('accepted')} style={{height: '8vh', width: 'auto', draggable: "false"}}/>
       </div>
 
 <div className="playlist-div" style={{gridColumn: '3/5',
@@ -161,6 +161,8 @@ class  Match extends React.Component {
       </div>
 
     </Paper>
+
+    
     </div>
 
 
@@ -176,6 +178,7 @@ class  Match extends React.Component {
     {match.matchingOn.artists ? <p>{match.matchingOn.artists.map(artist => <p>{artist}</p>)}</p> : null}
     {match.matchingOn.genres ? <p>{match.matchingOn.genres.map(genre => <p>{genre}</p>)}</p> : null}  
     </div>
+
     )
   }
 
