@@ -4,16 +4,26 @@
 }
 .profilePage {
     flex-direction: column;
-    align-items: center
+    align-items: center;
+    width: 50%;
+    min-width: 800px;
+    background-color: rgb(248, 248, 248);
+    height: 100%;
 }
 .headerPic{
     justify-content: center;
     width: 50%;
-    border: solid black 1px;
+    /* border: solid black 1px; */
     align-items: center;
+    box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    background-color: rgb(27, 27, 27);
+    color:#f8f8f8; 
+    padding: 2%;
+    margin-right: 1%;
+    position: relative;
 }
 .profilePic {
-    height: 100%;
+    /* height: 100%; */
     border-radius: 50%;
 }
 .headerInfo {
@@ -21,29 +31,57 @@
     align-items: left;
     padding-left: 2%;
     width: 50%;
-    border: solid black 1px;
-    font-size: 3.5rem;
+    /* border: solid black 1px; */
+    font-size: 2rem;
+    box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    padding: 2%;
+    background-color: rgb(27, 27, 27);
+    color:#f8f8f8;
 }
 
 .header {
     width: 80%;
+    margin-top: 2%;
 }
 
 .bio {
     height: auto;
-    width: 75%;
-    border: solid black 1px;
-    font-size: 3rem
+    width: 65%;
+    /* border: solid black 1px; */
+    font-size: 1.5rem;
+    box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    background-color: rgb(27, 27, 27);
+    color:#f8f8f8;
+    padding: 2%;
 }
 
 .userBody {
-width: 100%;
-flex-direction: column;
-align-items: center
+    width: 100%;
+    flex-direction: column;
+    align-items: center
 }
 
 .userEmail, .userBody {
-    margin-top: 2%
+    margin-top: 2%;
+    /* font-size: 2rem; */
+}
+
+.userEmail {
+    box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    background-color: rgb(27, 27, 27);
+    color:#f8f8f8;
+    padding: 2%;
+}
+
+.userName {
+    background-color: rgb(27, 27, 27);
+    color:#f8f8f8;   
+    padding: 2%;
+    width: 100%;
+}
+
+.userAge {
+    width:100%
 }
 
 #menuBuild{
@@ -65,4 +103,33 @@ align-items: center
 .bioText {
     padding-right: 3%;
     position: relative;
+}
+
+#picBuild {
+    padding-bottom: 2%;
+    padding-right: 2%;
+    position: absolute;
+    right: 0;
+    bottom: 0
+}
+
+.labels {
+    font-size: 2rem;
+    border-bottom: 1px solid grey;
+    width:100%
+}
+
+.title{
+    border-bottom: 1px solid grey;
+    width: 100%;
+    font-size: 3rem;
+    color: rgb(27, 27, 27);
+}
+
+.titleContainer {
+    width: 100%;
+}
+
+#editBtn {
+    height: 200px;
 }
