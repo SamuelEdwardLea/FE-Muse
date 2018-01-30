@@ -1,12 +1,12 @@
 import React from 'react';
 import Hammer from 'hammerjs';
 import Paper from 'material-ui/Paper';
-
 import Avatar from 'material-ui/Avatar';
 import ListItem from 'material-ui/List/ListItem';
 import { injectGlobal } from 'styled-components';
-
 import SnackbarExampleSimple from './PlaylistDisplay';
+
+
 
 
 injectGlobal`
@@ -58,6 +58,7 @@ class Match extends React.Component {
     })
   }
 
+
   render() {
 
     const paperStyle = {
@@ -75,6 +76,14 @@ class Match extends React.Component {
     };
 
     const match = this.props.match
+    
+    if (!match) {
+      return (
+        <div>
+          <p style={{ color: "black" }}>Sorry, we've ran out of matches, try widening your preferences...</p>
+        </div>
+      )
+    }
 
     const music = {
       tracks: match.matchingOn.tracks.map(track => <p>{track}</p>),
@@ -83,26 +92,13 @@ class Match extends React.Component {
     }
     const message = [music.tracks, music.artists, music.genres]
     
-
     const rateMatch = this.props.rateMatch
-    if (!match) {
-      return (
-        <div>
-          <p style={{ color: "black" }}>Sorry, we've ran out of matches, try widening your preferences...</p>
-        </div>
-      )
-    }
-    else return (
+
+    return (
       <div>
 
-
-
-
-
         <div id='card' style={{ marginTop: "15vh", marginLeft: "8vw", position: 'relative', height: "70vh", width: "62.5vw", transform: `translate3d(${this.state.x}px, ${this.state.y}px, 0px)` }}>
-
-
-
+        <div id="red" style={{backgroundColor: 'red', height: '50px', width: 'auto', visibility: `${this.state.visible}`}} />
 
           <Paper style={paperStyle} zDepth={5} rounded={false}>
 
