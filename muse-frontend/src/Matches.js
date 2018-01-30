@@ -5,13 +5,14 @@ import Match from './Match';
 class Matches extends Component {
   state = {
 
-    email: 'dj_sam_lea@hotmai.com',
+    email: this.props.email,
     matches: [],
     currentMatch: 0,
     loading: true
   }
 
   componentDidMount() {
+    if (this.state.email === '') return
     fetch(`http://localhost:3000/api/user/matches/${this.state.email}`)
       .then(buffer => buffer.json())
       .then(matches => {

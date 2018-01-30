@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
+import {Route, BrowserRouter, Switch, Redirect} from 'react-router-dom';
 import Form from './Form.js';
 // import Matches from './Matches'
 import Home from './home'
@@ -32,8 +32,8 @@ getEmail =  (email) => {
       <div className="App">
       <Navbar />
           <Switch>
-          <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} {...routeProps}/> }}/>
-          <Route path="/home" component={Home} />
+          <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} email={this.state.email} {...routeProps}/> }}/>
+          <Redirect from="/home" to="/" /> 
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
           <Route path="/form" render={(routeProps)=> {
             return (
