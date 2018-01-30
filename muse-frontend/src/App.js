@@ -20,10 +20,12 @@ class App extends Component {
     email: ''
   }
 
-getEmail =  (email) => {
-  this.setState({
-    email: email
-  })
+getEmail = (email) => {
+  if (this.state.email === '') {
+    this.setState({
+      email: email
+    })
+  }
 }
 
   render() {
@@ -35,7 +37,7 @@ getEmail =  (email) => {
       <div className="container" id="backDiv">
           <Switch>
           <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} email={this.state.email} {...routeProps}/> }}/>
-          <Redirect from="/home" to="/" /> 
+
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
           <Route path="/form" render={(routeProps)=> {
             return (
