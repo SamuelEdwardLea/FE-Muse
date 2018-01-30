@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
 import Form from './Form.js';
-import Matches from './Matches'
+// import Matches from './Matches'
 import Home from './home'
 import Profile from './profile'
 import Navbar from './Navbar'
