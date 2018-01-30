@@ -63,7 +63,7 @@ class Profile extends Component {
       <div className="headerPic">
       <center>
       <object className="profilePic" data={this.state.userProfile.picture}>
-        <img className="profilePic" src="https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170"/>
+        <img className="profilePic" src="https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170" alt="Edd Shearan!"/>
       </object>
       </center>
         <i onClick={this.handleDialogueToggle}className="material-icons" id="picBuild">build</i>
@@ -91,8 +91,8 @@ class Profile extends Component {
         <MenuItem>{this.state.userProfile.Gender}</MenuItem>
         <MenuItem><strong> Your preferences</strong></MenuItem>
         <MenuItem>{this.state.userProfile.GenderPreference.reduce((acc, item)  => {
-          { acc.push(`${item}`)
-          return acc;}}, []).join(' | ')}</MenuItem>
+         acc.push(`${item}`)
+          return acc;}, []).join(' | ')}</MenuItem>
         <Divider/>
         <MenuItem><strong> Location</strong> </MenuItem>
         <MenuItem>{this.state.userProfile.Area}</MenuItem>
