@@ -32,7 +32,7 @@ getEmail =  (email) => {
       <BrowserRouter>
       <div className="App">
       <Navbar />
-      <div className="container" style={{backgroundColor: "white", width: "80vw", height:"100%", position: "relative"}}>
+      <div className="container" id="backDiv">
           <Switch>
           <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} email={this.state.email} {...routeProps}/> }}/>
           <Redirect from="/home" to="/" /> 
