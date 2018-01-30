@@ -148,3 +148,7 @@
 #editBtn {
     height: 200px;
 }
+
+.drawerInput input{
+    text-align: center;
+}

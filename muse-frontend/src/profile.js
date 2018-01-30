@@ -6,7 +6,9 @@ import Drawer from 'material-ui/Drawer'
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
-
+import DropDownMenu from 'material-ui/DropDownMenu';
+import DropDownMenuSimpleExample from './Menu'
+import TextField from 'material-ui/TextField'
 
 
 class Profile extends Component {
@@ -15,7 +17,12 @@ class Profile extends Component {
     draweropen: false,
     dialogueopen: false,
     loading: true,
-    bioDialogOpen: false
+    bioDialogOpen: false,
+    preferencesActive: false,
+    preferenceVals: {
+      genderPrefs: ['Men'],
+      location: ''
+    }
   }
 
   componentDidMount = event => {
@@ -53,8 +60,10 @@ class Profile extends Component {
     })
   }
 
-  changeUserDetails = event => {
-    console.log('hiya')
+  toggleEditing = event => {
+    this.setState({
+      preferencesActive: !this.state.preferencesActive
+    })
   }
 
   render() {
@@ -92,26 +101,62 @@ class Profile extends Component {
         </div>
       </article>
       <p className="userEmail">{this.state.userProfile.Email}</p>
-  
+      
       <Drawer open={this.state.draweropen}>
-        <MenuItem className="aboutLabel" style={{color: '#1db954'}}><strong>About</strong><i id="menuBuild" onClick={this.changeUserDetails} className="material-icons">build</i></MenuItem>
+        <MenuItem className="aboutLabel" style={{color: '#1db954'}}><strong>About</strong><i id="menuBuild" onClick={this.toggleEditing} className="material-icons">build</i></MenuItem>
         <MenuItem><strong>Gender</strong> </MenuItem>
         <Divider/>
         <MenuItem>{this.state.userProfile.Gender}</MenuItem>
         <MenuItem><strong>Gender Preference</strong></MenuItem>
-        <MenuItem>{this.state.userProfile.GenderPreference.reduce((acc, item)  => {
-          { acc.push(`${item}`)
-          return acc;}}, []).join(' | ')}</MenuItem>
+        {!this.state.preferencesActive ? (
+          <MenuItem>{this.state.userProfile.GenderPreference.reduce((acc, item)  => {
+            { acc.push(`${item}`)
+            return acc;}}, []).join(' | ')}</MenuItem>
+   
+        ) : (
+          <MenuItem>
+          <DropDownMenu selectionRenderer={this.cb} onChange={this.handleChange} multiple='true' value={this.state.preferenceVals.genderPrefs}  openImmediately={true}>
+            <MenuItem value="Men" primaryText="Men"></MenuItem>
+            <MenuItem value="Women" primaryText="Women"></MenuItem>            
+          </DropDownMenu>
+          </MenuItem>
+        )}
+        
         <Divider/>
         <MenuItem><strong> Location</strong> </MenuItem>
-        <MenuItem>{this.state.userProfile.Area}</MenuItem>
-        </Drawer>
+        {!this.state.preferencesActive ? (
+          <MenuItem>{this.state.userProfile.Area}</MenuItem>
+        ) : ( 
+          <div className="drawerInput">
+          <TextField defaultValue={this.state.userProfile.Area} onChange={this.drawerInput}></TextField>
+          <RaisedButton label="Save" onClick={this.saveDetails}></RaisedButton>
+          </div>
+        ) }
+      </Drawer>
 
         <PictureDialog handleDialogueToggle={this.handleDialogueToggle} dialogueopen={this.state.dialogueopen} picture={this.state.userProfile.picture} submitPic={this.submitPic}/>
         <BioDialog oldBio={this.state.userProfile.Bio} handleBioToggle={this.handleBioToggle}  dialogueopen={this.state.bioDialogOpen} submitBio={this.submitBio}></BioDialog>
       </div> 
       </div>
     )
+  }
+
+  drawerInput = (event) => {
+    this.setState({
+      preferenceVals: {
+        location: event.target.value,
+        genderPrefs: this.state.preferenceVals.genderPrefs
+      }
+    })
+  }
+
+  handleChange = (event, index, value) => {
+    this.setState({
+      preferenceVals: {
+        genderPrefs: value,
+        location: this.state.location
+      }
+    })
   }
 
   submitPic = (url) => {
@@ -152,7 +197,31 @@ class Profile extends Component {
         bioDialogOpen: false
       })
     })
+  }
 
+  saveDetails = () => {
+    console.log(this.state.preferenceVals)
+    if (this.state.preferenceVals.genderPrefs.length === 0 ) return 
+    const location = this.state.preferenceVals.location || this.state.userProfile.Area
+    fetch(`http://localhost:3000/api/user/profile/preferences/${'pkcopley@gmail.com'}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        genderPrefs: this.state.preferenceVals.genderPrefs,
+        location: location
+      })
+    })
+    .then(buffer => buffer.json())
+    .then(profile => {
+      console.log(profile)
+      this.setState({
+        userProfile: profile,
+        preferencesActive: false
+      })
+    })
   }
 }
 
