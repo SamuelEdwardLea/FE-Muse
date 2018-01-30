@@ -1,9 +1,7 @@
 .nav-bar {
   color: black;
-  /* height: 4rem; */
   position: fixed;
   top: 0px;
-  /* box-shadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)'; */
   background-color: white;
   width: 100%;
   font-size: 2rem;
@@ -12,7 +10,7 @@
   margin: 0;
   padding: 0;
   z-index: 999;
-  /* overflow: hidden; */
+
 }
 
 .nav-bar a {
