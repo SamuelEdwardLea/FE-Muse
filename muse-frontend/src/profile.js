@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './profile.css'
+import PictureDialog from './PictureDialog';
+import BioDialog from './BioDialog'
 import Drawer from 'material-ui/Drawer'
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
-
+import DropDownMenu from 'material-ui/DropDownMenu';
+import DropDownMenuSimpleExample from './Menu'
+import TextField from 'material-ui/TextField'
 
 
 class Profile extends Component {
@@ -12,7 +16,13 @@ class Profile extends Component {
     userProfile: '',
     draweropen: false,
     dialogueopen: false,
-    loading: true
+    loading: true,
+    bioDialogOpen: false,
+    preferencesActive: false,
+    preferenceVals: {
+      genderPrefs: ['Men'],
+      location: ''
+    }
   }
 
   componentDidMount = event => {
@@ -31,6 +41,12 @@ class Profile extends Component {
     })
   }
 
+  handleBioToggle = () => {
+    this.setState({
+      bioDialogOpen: !this.state.bioDialogOpen
+    })
+  }
+
 
   fetchUserProfile = (email) => {
     return fetch(`http://localhost:3000/api/user/profile/${email}`)
@@ -44,8 +60,10 @@ class Profile extends Component {
     })
   }
 
-  changeUserDetails = event => {
-    console.log('hiya')
+  toggleEditing = event => {
+    this.setState({
+      preferencesActive: !this.state.preferencesActive
+    })
   }
 
   render() {
@@ -53,7 +71,7 @@ class Profile extends Component {
     (
       <div className="profilePage">
       <div className="titleContainer">
-      <p className="title">Account Overview</p>
+      <p className="title">Your Profile</p>
       <RaisedButton
       label="Edit"
       onClick={this.handleDrawerToggle}
@@ -66,7 +84,7 @@ class Profile extends Component {
         <img className="profilePic" src="https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170" alt="Edd Shearan!"/>
       </object>
       </center>
-        <i onClick={this.handleDialogueToggle}className="material-icons" id="picBuild">build</i>
+        <i onClick={this.handleDialogueToggle}className="material-icons" id="picBuild" >build</i>
       </div>
       <div className="headerInfo">
       <p className="labels">Name</p>
@@ -79,27 +97,131 @@ class Profile extends Component {
       <article className="bio">
       <div className="bioText">
         {this.state.userProfile.Bio}
-        <div id="bioBuild"><i onClick={this.handleDialogueToggle}className="material-icons">build</i></div>
+        <div id="bioBuild"><i onClick={this.handleBioToggle}className="material-icons">build</i></div>
         </div>
       </article>
       <p className="userEmail">{this.state.userProfile.Email}</p>
-  
+      
       <Drawer open={this.state.draweropen}>
-        <MenuItem className="aboutLabel">About<i id="menuBuild" onClick={this.changeUserDetails} className="material-icons">build</i></MenuItem>
+        <MenuItem className="aboutLabel" style={{color: '#1db954'}}><strong>About</strong><i id="menuBuild" onClick={this.toggleEditing} className="material-icons">build</i></MenuItem>
         <MenuItem><strong>Gender</strong> </MenuItem>
         <Divider/>
         <MenuItem>{this.state.userProfile.Gender}</MenuItem>
-        <MenuItem><strong> Your preferences</strong></MenuItem>
-        <MenuItem>{this.state.userProfile.GenderPreference.reduce((acc, item)  => {
-         acc.push(`${item}`)
-          return acc;}, []).join(' | ')}</MenuItem>
+        <MenuItem><strong>Gender Preference</strong></MenuItem>
+        {!this.state.preferencesActive ? (
+          <MenuItem>{this.state.userProfile.GenderPreference.reduce((acc, item)  => {
+            { acc.push(`${item}`)
+            return acc;}}, []).join(' | ')}</MenuItem>
+   
+        ) : (
+          <MenuItem>
+          <DropDownMenu selectionRenderer={this.cb} onChange={this.handleChange} multiple='true' value={this.state.preferenceVals.genderPrefs}  openImmediately={true}>
+            <MenuItem value="Men" primaryText="Men"></MenuItem>
+            <MenuItem value="Women" primaryText="Women"></MenuItem>            
+          </DropDownMenu>
+          </MenuItem>
+        )}
+        
         <Divider/>
         <MenuItem><strong> Location</strong> </MenuItem>
-        <MenuItem>{this.state.userProfile.Area}</MenuItem>
-        </Drawer>
-      </div>
+        {!this.state.preferencesActive ? (
+          <MenuItem>{this.state.userProfile.Area}</MenuItem>
+        ) : ( 
+          <div className="drawerInput">
+          <TextField defaultValue={this.state.userProfile.Area} onChange={this.drawerInput}></TextField>
+          <RaisedButton label="Save" onClick={this.saveDetails}></RaisedButton>
+          </div>
+        ) }
+      </Drawer>
+
+        <PictureDialog handleDialogueToggle={this.handleDialogueToggle} dialogueopen={this.state.dialogueopen} picture={this.state.userProfile.picture} submitPic={this.submitPic}/>
+        <BioDialog oldBio={this.state.userProfile.Bio} handleBioToggle={this.handleBioToggle}  dialogueopen={this.state.bioDialogOpen} submitBio={this.submitBio}></BioDialog>
+      </div> 
       </div>
     )
+  }
+
+  drawerInput = (event) => {
+    this.setState({
+      preferenceVals: {
+        location: event.target.value,
+        genderPrefs: this.state.preferenceVals.genderPrefs
+      }
+    })
+  }
+
+  handleChange = (event, index, value) => {
+    this.setState({
+      preferenceVals: {
+        genderPrefs: value,
+        location: this.state.location
+      }
+    })
+  }
+
+  submitPic = (url) => {
+    fetch(`http://localhost:3000/api/user/profile/picture/${'pkcopley@gmail.com'}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        url: url
+      })
+    })
+    .then(buffer => buffer.json())
+    .then(res => {
+      this.setState({
+        userProfile: res,
+        dialogueopen: false
+      })
+    })
+  }
+
+  submitBio = (bio) => {
+    fetch(`http://localhost:3000/api/user/profile/bio/${'pkcopley@gmail.com'}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        bio: bio
+      })
+    })
+    .then(buffer => buffer.json())
+    .then(profile => {
+      this.setState({
+        userProfile: profile,
+        bioDialogOpen: false
+      })
+    })
+  }
+
+  saveDetails = () => {
+    console.log(this.state.preferenceVals)
+    if (this.state.preferenceVals.genderPrefs.length === 0 ) return 
+    const location = this.state.preferenceVals.location || this.state.userProfile.Area
+    fetch(`http://localhost:3000/api/user/profile/preferences/${'pkcopley@gmail.com'}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        genderPrefs: this.state.preferenceVals.genderPrefs,
+        location: location
+      })
+    })
+    .then(buffer => buffer.json())
+    .then(profile => {
+      console.log(profile)
+      this.setState({
+        userProfile: profile,
+        preferencesActive: false
+      })
+    })
   }
 }
 

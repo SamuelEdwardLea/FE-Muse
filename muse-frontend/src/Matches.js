@@ -5,7 +5,6 @@ import YesDrawer from './YesDrawer.js'
 
 class Matches extends Component {
   state = {
-
     email: this.props.email,
     matches: [],
     currentMatch: 0,
