@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './profile.css'
 import PictureDialog from './PictureDialog';
+import BioDialog from './BioDialog'
 import Drawer from 'material-ui/Drawer'
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem'
@@ -13,7 +14,8 @@ class Profile extends Component {
     userProfile: '',
     draweropen: false,
     dialogueopen: false,
-    loading: true
+    loading: true,
+    bioDialogOpen: false
   }
 
   componentDidMount = event => {
@@ -29,6 +31,12 @@ class Profile extends Component {
   handleDialogueToggle = () => {
     this.setState({
       dialogueopen: !this.state.dialogueopen
+    })
+  }
+
+  handleBioToggle = () => {
+    this.setState({
+      bioDialogOpen: !this.state.bioDialogOpen
     })
   }
 
@@ -80,7 +88,7 @@ class Profile extends Component {
       <article className="bio">
       <div className="bioText">
         {this.state.userProfile.Bio}
-        <div id="bioBuild"><i onClick={this.handleDialogueToggle}className="material-icons">build</i></div>
+        <div id="bioBuild"><i onClick={this.handleBioToggle}className="material-icons">build</i></div>
         </div>
       </article>
       <p className="userEmail">{this.state.userProfile.Email}</p>
@@ -90,7 +98,7 @@ class Profile extends Component {
         <MenuItem><strong>Gender</strong> </MenuItem>
         <Divider/>
         <MenuItem>{this.state.userProfile.Gender}</MenuItem>
-        <MenuItem><strong>Account Overview</strong></MenuItem>
+        <MenuItem><strong>Gender Preference</strong></MenuItem>
         <MenuItem>{this.state.userProfile.GenderPreference.reduce((acc, item)  => {
           { acc.push(`${item}`)
           return acc;}}, []).join(' | ')}</MenuItem>
@@ -100,13 +108,13 @@ class Profile extends Component {
         </Drawer>
 
         <PictureDialog handleDialogueToggle={this.handleDialogueToggle} dialogueopen={this.state.dialogueopen} picture={this.state.userProfile.picture} submitPic={this.submitPic}/>
-      </div>
+        <BioDialog oldBio={this.state.userProfile.Bio} handleBioToggle={this.handleBioToggle}  dialogueopen={this.state.bioDialogOpen} submitBio={this.submitBio}></BioDialog>
+      </div> 
       </div>
     )
   }
 
   submitPic = (url) => {
-    console.log(url)
     fetch(`http://localhost:3000/api/user/profile/picture/${'pkcopley@gmail.com'}`, {
       headers: {
         'Accept': 'application/json',
@@ -126,6 +134,26 @@ class Profile extends Component {
     })
   }
 
+  submitBio = (bio) => {
+    fetch(`http://localhost:3000/api/user/profile/bio/${'pkcopley@gmail.com'}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        bio: bio
+      })
+    })
+    .then(buffer => buffer.json())
+    .then(profile => {
+      this.setState({
+        userProfile: profile,
+        bioDialogOpen: false
+      })
+    })
+
+  }
 }
 
 export default Profile;
