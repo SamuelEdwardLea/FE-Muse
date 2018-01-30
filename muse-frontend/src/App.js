@@ -31,6 +31,7 @@ getEmail =  (email) => {
       <BrowserRouter>
       <div className="App">
       <Navbar />
+      <div className="container" style={{backgroundColor: "white", width: "80vw", height:"100%", position: "relative"}}>
           <Switch>
           <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} email={this.state.email} {...routeProps}/> }}/>
           <Redirect from="/home" to="/" /> 
@@ -38,10 +39,10 @@ getEmail =  (email) => {
           <Route path="/form" render={(routeProps)=> {
             return (
               <Form email={this.state.email} {...routeProps}/>
-              )
-            }} 
-           />
+            )
+          }} />
           </Switch>
+      </div>
       </div>
       </BrowserRouter>
       </MuiThemeProvider>
