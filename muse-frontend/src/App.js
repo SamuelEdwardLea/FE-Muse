@@ -33,7 +33,7 @@ getEmail =  (email) => {
       <Navbar />
           <Switch>
           <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} {...routeProps}/> }}/>
-          <Route path="/home" component={Home} />
+          <Route path="/home" render={(routeProps) => {return <Home getEmail={this.getEmail} {...routeProps} />}}/>
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
           <Route path="/form" render={(routeProps)=> {
             return (

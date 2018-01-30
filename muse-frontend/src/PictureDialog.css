@@ -1,0 +1,20 @@
+.diaTop {
+  width: 100%
+}
+
+.diaBottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr)
+}
+
+.cancelContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.submitContainer {
+  display: flex;
+  align-content: flex-end;
+  align-items: flex-end;  
+}

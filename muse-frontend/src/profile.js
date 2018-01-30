@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './profile.css'
+import PictureDialog from './PictureDialog';
 import Drawer from 'material-ui/Drawer'
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem'
@@ -66,7 +67,7 @@ class Profile extends Component {
         <img className="profilePic" src="https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170"/>
       </object>
       </center>
-        <i onClick={this.handleDialogueToggle}className="material-icons" id="picBuild">build</i>
+        <i onClick={this.handleDialogueToggle}className="material-icons" id="picBuild" >build</i>
       </div>
       <div className="headerInfo">
       <p className="labels">Name</p>
@@ -97,10 +98,34 @@ class Profile extends Component {
         <MenuItem><strong> Location</strong> </MenuItem>
         <MenuItem>{this.state.userProfile.Area}</MenuItem>
         </Drawer>
+
+        <PictureDialog handleDialogueToggle={this.handleDialogueToggle} dialogueopen={this.state.dialogueopen} picture={this.state.userProfile.picture} submitPic={this.submitPic}/>
       </div>
       </div>
     )
   }
+
+  submitPic = (url) => {
+    console.log(url)
+    fetch(`http://localhost:3000/api/user/profile/picture/${'pkcopley@gmail.com'}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        url: url
+      })
+    })
+    .then(buffer => buffer.json())
+    .then(res => {
+      this.setState({
+        userProfile: res,
+        dialogueopen: false
+      })
+    })
+  }
+
 }
 
 export default Profile;

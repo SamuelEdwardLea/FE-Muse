@@ -4,8 +4,7 @@ import Match from './Match';
 
 class Matches extends Component {
   state = {
-
-    email: 'dj_sam_lea@hotmai.com',
+    email: 'pkcopley@gmail.com',
     matches: [],
     currentMatch: 0,
     loading: true

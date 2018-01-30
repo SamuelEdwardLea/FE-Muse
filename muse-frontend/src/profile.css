@@ -25,6 +25,7 @@
 .profilePic {
     /* height: 100%; */
     border-radius: 50%;
+    max-width: 100%;
 }
 .headerInfo {
     flex-direction: column;

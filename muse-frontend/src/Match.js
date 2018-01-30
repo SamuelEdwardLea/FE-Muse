@@ -7,15 +7,6 @@ import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import { injectGlobal } from 'styled-components';
 
-injectGlobal`
-@font-face {
-font-family: 'CabinSketch-Regular';
-font-style: normal;
-font-weight: 400;
-src: local('../public/fonts/cabin-sketch-v1.02/CabinSketch-Regular.tff'), url('../public/fonts/cabin-sketch-v1.02/CabinSketch-Regular.tff') format('tff');
-}
-`
-
 class  Match extends React.Component {
 
   state = {
