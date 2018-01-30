@@ -12,12 +12,10 @@ class Home extends Component {
   }
 
   render() {
-
-   
     
     return (
       <div>
-      <Matches/>
+      <Matches email={this.props.email}/>
       
       </div>
 
