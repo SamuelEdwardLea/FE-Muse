@@ -1,5 +1,20 @@
-import React from 'react'
-import Hammer from 'hammerjs'
+import React from 'react';
+import Hammer from 'hammerjs';
+import Paper from 'material-ui/Paper';
+
+import Avatar from 'material-ui/Avatar';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import { injectGlobal } from 'styled-components';
+
+injectGlobal`
+@font-face {
+font-family: 'CabinSketch-Regular';
+font-style: normal;
+font-weight: 400;
+src: local('../public/fonts/cabin-sketch-v1.02/CabinSketch-Regular.tff'), url('../public/fonts/cabin-sketch-v1.02/CabinSketch-Regular.tff') format('tff');
+}
+`
 
 class  Match extends React.Component {
 
@@ -9,6 +24,7 @@ class  Match extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.match)
     const card = document.getElementById('card')
     const swipeableImg = new Hammer(card)
     swipeableImg.on('pan', (ev) => {
@@ -40,6 +56,32 @@ class  Match extends React.Component {
   }
 
   render() {
+
+    const paperStyle = {
+      position: 'relative',
+      left: '270px',
+      height: '70vh',
+      width: '60vw',
+      margin: 20,
+      textAlign: 'center',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gridTemplateRows: 'repeat(6, 1fr)',
+      dp: 8,
+      radius: '200px'
+    };
+
+    const imagePaper = {
+
+      height: '50',
+      width: '50',
+      margin: '20',
+      textAlign: 'center',
+      display: 'inline-block',
+      dp: 9,
+      backgroundColor: 'blue'
+    }
+
     const match = this.props.match
     const rateMatch = this.props.rateMatch
     if (!match) {
@@ -51,16 +93,92 @@ class  Match extends React.Component {
     }
     else return (
     <div>
-    <p>{match.Name}</p>
-    {/* <object data={match.picture} ><img src={'https://s-media-cache-ak0.pinimg.com/736x/0e/b7/3f/0eb73fd0a870b647d7757bc3d979cb99--ed-sheeran-memes-random-stuff.jpg'} id='card' style={ {transform: `translate3d(${this.state.x}px, ${this.state.y}px, 0px)`}}></img></object> */}
-    <img src={match.picture} id='card' style={ {transform: `translate3d(${this.state.x}px, ${this.state.y}px, 0px)`}} onError={this.defaultImg}></img> 
-    <p>{match.Bio}</p>
+
+      
+      
+
+
+    <div id='card' style={{ margin: 'auto', backgroundColor: 'yellow', position: 'absolute', transform: `translate3d(${this.state.x}px, ${this.state.y}px, 0px)`}}>
+
+
+
+
+    <Paper style={paperStyle} zDepth={5} rounded={false}>
+
+      <div className="profile-image" style={{gridColumn: '1/3',
+      gridRow: '2/5'}}>
+
+<ListItem
+      disabled={true}
+      leftAvatar={
+        <Avatar
+          src={match.picture}
+          onError={this.defaultImg} 
+          size={240}
+          style={{pointerEvents: 'none', marginLeft: '70px', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)'}}
+
+        />
+      }
+    >
+    </ListItem>
+
+      {/* <Paper style={imagePaper} zDepth={2} circle={true}
+      elevation={4} style={{overflow:'hidden'}} >
+      <img src='https://s-media-cache-ak0.pinimg.com/736x/0e/b7/3f/0eb73fd0a870b647d7757bc3d979cb99--ed-sheeran-memes-random-stuff.jpg' style={{width:'50%', height:'auto'}}/>
+      </Paper> */}
+
+
+      </div>
+
+<div className="cresc-left" style={{gridColumn: '1',
+      gridRow: '6', draggable: "false"}}>
+ 
+ <input type="image" src="https://image.flaticon.com/icons/svg/222/222778.svg" onClick={() => rateMatch('rejection')} style={{height: '8vh', width: 'auto'}}   />
+      </div>
+
+<div className="treble-clef" style={{gridColumn: '2/4',
+      gridRow: '6'}}>
+      <img src="https://image.flaticon.com/icons/svg/222/222765.svg" style={{height: '8vh', width: 'auto', draggable: "false"}} />      
+      </div>
+
+<div className="cresc-right" style={{gridColumn: '4',
+      gridRow: '6'}}>
+      <input type="image" src="https://image.flaticon.com/icons/svg/222/222777.svg" onClick={() => rateMatch('accepted')} style={{height: '8vh', width: 'auto', draggable: "false"}}/>
+      </div>
+
+<div className="playlist-div" style={{gridColumn: '3/5',
+      gridRow: '2/5'}}/>
+
+<div className="match-name" style={{gridColumn: '3/5',
+      gridRow: '2', textAlign: 'left'}}>
+      <h1 style={{position: 'relative', top: '27px', fontFamily: 'Hind Siliguri,  sans-serif'}}>{match.Name}</h1>
+      </div>
+
+<div className="match-bio" style={{gridColumn: '3/5',
+      gridRow: '3/5', textAlign: 'left'}}>
+      <h2 style={{fontFamily: 'Hind Siliguri, sans-serif'}}>{match.Age}</h2> 
+      <h3 style={{marginRight: '50px', fontFamily: 'Hind Siliguri, sans-serif'}}>{match.Bio}</h3>
+      </div>
+
+    </Paper>
+
+    
+    </div>
+
+
+
+
+
+    
+ 
+
+
     <p>You both like: </p>
     {match.matchingOn.tracks ? <p>{match.matchingOn.tracks.map(track => <p>{track}</p>)}</p> : null}
     {match.matchingOn.artists ? <p>{match.matchingOn.artists.map(artist => <p>{artist}</p>)}</p> : null}
     {match.matchingOn.genres ? <p>{match.matchingOn.genres.map(genre => <p>{genre}</p>)}</p> : null}  
-    <button id="rejectButton"onClick={() => rateMatch('rejection')}>Nay!</button><button id="approveButton" onClick={() => rateMatch('accepted')}>Yay!</button>
     </div>
+
     )
   }
 
