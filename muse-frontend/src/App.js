@@ -19,7 +19,8 @@ const muiTheme = getMuiTheme(lightBaseTheme);
 class App extends Component {
   state = {
     email: '',
-    loggedIn: false
+    loggedIn: false,
+    formRequired: false
   }
 
 getEmail = (email) => {
@@ -32,18 +33,29 @@ getEmail = (email) => {
 
   componentDidMount() {
     if (/\?email=/g.test(window.location.href)) {
-
       const email = window.location.href.slice(40)
-      console.log(this.props)
-      this.setState({
-        loggedIn: true,
-        email: email
+      
+      return fetch(`http://localhost:3000/api/user/profile/${email}`)
+      .then(buffer => buffer.json())
+      .then(userProfile => {
+        console.log(userProfile)
+        if (userProfile.GenderPreference.length) {
+          this.setState({
+            loggedIn: true,
+            email: email
+          })
+        } else {
+          this.setState({
+            loggedIn: true,
+            email: email,
+            formRequired: true
+          })
+        }
       })
     }
   }
 
   render() {
-    
     if (!this.state.loggedIn) {
         return (
           <Login/>
@@ -57,15 +69,10 @@ getEmail = (email) => {
       <Navbar />
       <div className="container" id="backDiv">
           <Switch>
-          <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} email={this.state.email} {...routeProps}/> }}/>
+          <Route exact path="/" render={(routeProps)=> this.state.formRequired ? <Redirect to="/form" /> : <Home getEmail={this.getEmail} email={this.state.email} {...routeProps}/> }/>
           <Route path="/authorised" render={routeProps => this.state.loggedIn ? <Redirect to="/" /> : <div></div>}/>x
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
-          <Route path="/form" render={(routeProps)=> {
-            return (
-              <Form email={this.state.email} {...routeProps}/>
-              )
-            }} 
-           />
+          <Route path="/form" render={(routeProps)=> this.state.formRequired ? <Form email={this.state.email} formCompleted={this.formCompleted} {...routeProps}/> : <Redirect to ="/"/> }/>
           <Route path="/incoming" render={routeProps => {return <Incoming {...routeProps} email={this.state.email}/>}} />
           </Switch>
       </div>
@@ -74,6 +81,12 @@ getEmail = (email) => {
       </MuiThemeProvider>
     )
   }
+  }
+
+  formCompleted = () => {
+    this.setState({
+      formRequired: false
+    })
   }
 }
 
