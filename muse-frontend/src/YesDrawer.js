@@ -7,6 +7,8 @@ export default class DrawerOpenRightExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {open: false};
+    // this.state = {open: true};
+    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,8 +30,9 @@ export default class DrawerOpenRightExample extends React.Component {
           width={200}
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
-          containerStyle={{height: '100px', marginTop: '50vh'}}>
-          <MenuItem onClick={this.handleClose}>YES!</MenuItem>
+          containerStyle={{height: '300px', marginTop: '25vh', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px'}}>
+          <br /> <br /> <br />
+          <MenuItem onClick={this.handleClose}><img src="https://image.flaticon.com/icons/svg/70/70401.svg"/></MenuItem>
         </Drawer>
       </div>
     );

@@ -6,6 +6,7 @@ import ListItem from 'material-ui/List/ListItem';
 import { injectGlobal } from 'styled-components';
 import SnackbarExampleSimple from './PlaylistDisplay';
 
+import './App.css';
 
 
 
@@ -14,7 +15,8 @@ class Match extends React.Component {
 
   state = {
     x: 0,
-    y: 0
+    y: 0,
+    upStyle: 'slider'
   }
 
   componentDidMount() {
@@ -50,6 +52,19 @@ class Match extends React.Component {
     })
   }
 
+  slideUp = (event) => { 
+    if (this.state.upStyle === 'slider') {
+      this.setState({ upStyle: 'slider.close' }) 
+    } else {
+      this.setState({ upStyle: 'slider' }) 
+    }
+  }
+
+
+  // slideUp () {
+  //   name = (event) => {
+  //   this.setState({ name: event.target.value });
+  // }
 
   render() {
 
@@ -86,13 +101,24 @@ class Match extends React.Component {
     
     const rateMatch = this.props.rateMatch
 
+    
+
     return (
       <div>
 
         <div id='card' style={{ marginTop: "15vh", marginLeft: "8vw", position: 'relative', height: "70vh", width: "62.5vw", transform: `translate3d(${this.state.x}px, ${this.state.y}px, 0px)` }}>
-        <div id="red" style={{backgroundColor: 'red', height: '50px', width: 'auto', visibility: `${this.state.visible}`}} />
 
+        {/* <div className={this.state.upStyle}> */}
+        {/* </div> */}
+
+        
+ 
+  
           <Paper style={paperStyle} zDepth={5} rounded={false}>
+          
+          {/* <button onClick={() => this.slideUp()}>
+            Bring it
+          </button> */}
 
             <div className="profile-image" style={{
               gridColumn: '1/3',
@@ -106,7 +132,9 @@ class Match extends React.Component {
                     src={match.picture}
                     onError={this.defaultImg}
                     size={240}
-                    style={{ pointerEvents: 'none', marginLeft: '70px', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)' }}
+                    style={{ 
+                      pointerEvents: 'none', marginLeft: '70px', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)' 
+                    }}
 
                   />
                 }

@@ -17,6 +17,7 @@ import { orange500 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import PlayWidget from 'react-spotify-widgets';
 
 
 class Form extends Component {
@@ -134,6 +135,7 @@ class Form extends Component {
 
     return (
       <BrowserRouter>
+
         <form className="formContainer" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gridTemplateRows: 'repeat(11, 1fr)' }}>
           <div style={{ gridColumn: "2/5", gridRow: "3" }}>
             <div style={{ width: "10vw", height: "auto", backgroundColor: "blue" }} />
@@ -174,6 +176,7 @@ class Form extends Component {
               <MenuItem value="Female" primaryText="Female" checked={this.genderCheck} />
             </DropDownMenu>
             <br />
+
           </div>
 
           <br />
@@ -230,6 +233,7 @@ class Form extends Component {
 
 
         </form>
+
       </BrowserRouter>
     )
   }
