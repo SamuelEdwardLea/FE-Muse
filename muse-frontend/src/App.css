@@ -5,7 +5,7 @@
   align-items: center;
   flex-direction: column;
   background:linear-gradient(rgb(30, 42, 56), rgb(8, 14, 26)) ;
-  /* height: 100% */
+  height: 100%
 }
 
 .App-logo {
@@ -33,6 +33,12 @@ body, html, #root {
   height: 100%;
 }
 
+#backDiv {
+	background: -webkit-linear-gradient(-45deg, rgba(26, 188, 156, 1) 0%, rgba(142, 68, 173, 1) 100%);
+   width: 80vw; 
+   height:100%; 
+   position: relative;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
@@ -194,4 +200,19 @@ ul {
   position: relative;
   width: 50%; }
 
-
+  .slider {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0vh;
+    overflow: hidden;
+    background-color:red; color: #FFF;
+    transition: all 1s;
+  }
+  
+  .slider.close {
+    background-color: blue;
+    top: 100vh;
+    height: 0;
+  }
+  

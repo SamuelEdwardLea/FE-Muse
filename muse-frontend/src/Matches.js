@@ -1,20 +1,23 @@
 import React, {Component} from 'react'
 import Match from './Match';
-
+import NoDrawer from './NoDrawer.js'
+import YesDrawer from './YesDrawer.js'
 
 class Matches extends Component {
   state = {
-    email: 'pkcopley@gmail.com',
+    email: this.props.email,
     matches: [],
     currentMatch: 0,
-    loading: true
+    loading: true,
+    decision: ''
   }
 
   componentDidMount() {
+    if (this.state.email === '') return
     fetch(`http://localhost:3000/api/user/matches/${this.state.email}`)
       .then(buffer => buffer.json())
       .then(matches => {
-        console.log(matches)
+        // console.log(matches)
         this.setState({matches: matches, loading: false})
       })
   }
@@ -22,14 +25,19 @@ class Matches extends Component {
   render() {
     console.log(this.state.matches)
     return (
+
+
       <div>
-  {!this.state.loading ? <Match rateMatch={this.rateMatch} match={this.state.matches[this.state.currentMatch]}/> : 
+         <NoDrawer swipe={this.state.decision}/>
+      <YesDrawer swipe={this.state.decision}/>
+  {!this.state.loading ? <Match decision={this.state.decision} rateMatch={this.rateMatch} match={this.state.matches[this.state.currentMatch]}/> : 
         <p>Loading...</p>}
       </div>
     )
   }
 
   rateMatch = (choice) => {
+    console.log(choice)
     return fetch(`http://localhost:3000/api/user/matches/${this.state.email}`, {
       headers: {
         'Accept': 'application/json',
@@ -42,7 +50,10 @@ class Matches extends Component {
       })
     })
     .then(buffer => {
-      this.setState({currentMatch: this.state.currentMatch + 1})
+      this.setState({
+        currentMatch: this.state.currentMatch + 1,
+        decision: choice
+      })      
     })
     .catch(console.log)
   }

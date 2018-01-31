@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route, NavLink, BrowserRouter, Switch} from 'react-router-dom';
+import {Route, BrowserRouter, Switch, Redirect} from 'react-router-dom';
 import Form from './Form.js';
 // import Matches from './Matches'
 import Home from './home'
 import Profile from './profile'
 import Navbar from './Navbar'
 import Incoming from './Incoming'
+
 
 
 // import MyAwesomeReactComponent from './MyAwesomeReactComponent';
@@ -21,10 +22,12 @@ class App extends Component {
     email: ''
   }
 
-getEmail =  (email) => {
-  this.setState({
-    email: email
-  })
+getEmail = (email) => {
+  if (this.state.email === '') {
+    this.setState({
+      email: email
+    })
+  }
 }
 
   render() {
@@ -33,9 +36,10 @@ getEmail =  (email) => {
       <BrowserRouter>
       <div className="App">
       <Navbar />
+      <div className="container" id="backDiv">
           <Switch>
-          <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} {...routeProps}/> }}/>
-          <Route path="/home" render={(routeProps) => {return <Home getEmail={this.getEmail} {...routeProps} />}}/>
+          <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} email={this.state.email} {...routeProps}/> }}/>
+
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
           <Route path="/form" render={(routeProps)=> {
             return (
@@ -45,6 +49,7 @@ getEmail =  (email) => {
            />
           <Route path="/incoming" render={routeProps => {return <Incoming {...routeProps} email={this.state.email}/>}} />
           </Switch>
+      </div>
       </div>
       </BrowserRouter>
       </MuiThemeProvider>
