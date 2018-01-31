@@ -114,8 +114,9 @@ ul {
 /* AGE SLIDER */
 
 .age-slider {
-  position: relative;
-  left: 25vw;
+  width: 900px;
+  /* position: relative;
+  left: 25vw; */
 }
 
 .input-range__slider {
