@@ -9,8 +9,6 @@ import Navbar from './Navbar'
 import Incoming from './Incoming'
 import Login from './Login'
 
-
-
 // import MyAwesomeReactComponent from './MyAwesomeReactComponent';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -34,13 +32,13 @@ getEmail = (email) => {
 
   componentDidMount() {
     if (/\?email=/g.test(window.location.href)) {
-      const email = window.location.href.slice(29)
-      console.log(email)
+
+      const email = window.location.href.slice(40)
+      console.log(this.props)
       this.setState({
         loggedIn: true,
         email: email
       })
-      
     }
   }
 
@@ -60,7 +58,7 @@ getEmail = (email) => {
       <div className="container" id="backDiv">
           <Switch>
           <Route exact path="/" render={(routeProps)=> {return <Home getEmail={this.getEmail} email={this.state.email} {...routeProps}/> }}/>
-
+          <Route path="/authorised" render={routeProps => this.state.loggedIn ? <Redirect to="/" /> : <div></div>}/>x
           <Route path='/profile'render={routeProps => (< Profile {...routeProps} email={this.state.email}/>)} />
           <Route path="/form" render={(routeProps)=> {
             return (
@@ -75,7 +73,7 @@ getEmail = (email) => {
       </BrowserRouter>
       </MuiThemeProvider>
     )
-  };
+  }
   }
 }
 

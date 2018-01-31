@@ -52,7 +52,7 @@ class Profile extends Component {
     return fetch(`http://localhost:3000/api/user/profile/${email}`)
     .then(buffer => buffer.json())
     .then(userProfile => {
-      console.log(userProfile)
+      // console.log(userProfile)
       this.setState({
         userProfile: userProfile,
       loading: false
