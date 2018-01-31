@@ -17,6 +17,7 @@ import { orange500 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import PlayWidget from 'react-spotify-widgets';
 
 
 class Form extends Component {
@@ -129,6 +130,9 @@ class Form extends Component {
         <section className="formContainer">
           <form style={{marginTop: "150px"}}>
             <div >
+
+
+
               <TextField
                 errorText={(this.state.name.match(/[0-9]/g)) ? "NO!" : null}
                 type="text"
@@ -180,6 +184,9 @@ class Form extends Component {
             </div>
 
 
+         
+
+
             <br />
             <br />
 
@@ -196,6 +203,19 @@ class Form extends Component {
 
             <br />
             <br />
+
+            <PlayWidget
+          width={300}
+          height={380}
+          uri={'spotify:track:5pPaz7DQVQa56conheTyaf'}
+          lightTheme={true}
+        />
+          <PlayWidget
+          width={300}
+          height={380}
+          uri={'spotify:track:35lAjvsvS9k9HHuP1fjDT8'}
+          lightTheme={true}
+        />
 
             <div>
               <MuiThemeProvider muiTheme={muiTheme}>

@@ -7,7 +7,8 @@ export default class DrawerUndockedExample extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: false};
+        this.state = {open: false};
+    // this.state = {open: true};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,9 +30,10 @@ export default class DrawerUndockedExample extends React.Component {
           width={200}
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
-          containerStyle={{height: '100px', marginTop: '50vh'}}
-        >
-          <MenuItem onClick={this.handleClose} style={{backgroundColor: "red"}}>No :'(</MenuItem>
+          containerStyle={{height: '300px', marginTop: '25vh', borderTopRightRadius: '20px', borderBottomRightRadius: '20px'}}
+          >
+          <br /> <br /> <br /> <br /> <br /> <br /> 
+          <MenuItem onClick={this.handleClose} style={{backgroundColor: "red", marginLeft: 'auto', marginRight: 'auto'}}>No :'(</MenuItem>
         </Drawer>
       </div>
     );
