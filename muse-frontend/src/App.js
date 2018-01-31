@@ -32,6 +32,7 @@ getEmail = (email) => {
 
   componentDidMount() {
     if (/\?email=/g.test(window.location.href)) {
+
       const email = window.location.href.slice(40)
       console.log(this.props)
       this.setState({
