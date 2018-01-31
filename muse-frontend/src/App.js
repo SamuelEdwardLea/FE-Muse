@@ -6,6 +6,7 @@ import Form from './Form.js';
 import Home from './home'
 import Profile from './profile'
 import Navbar from './Navbar'
+import Incoming from './Incoming'
 
 
 
@@ -13,6 +14,7 @@ import Navbar from './Navbar'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
+
 const muiTheme = getMuiTheme(lightBaseTheme);
 
 class App extends Component {
@@ -42,8 +44,10 @@ getEmail = (email) => {
           <Route path="/form" render={(routeProps)=> {
             return (
               <Form email={this.state.email} {...routeProps}/>
-            )
-          }} />
+              )
+            }} 
+           />
+          <Route path="/incoming" render={routeProps => {return <Incoming {...routeProps} email={this.state.email}/>}} />
           </Switch>
       </div>
       </div>
