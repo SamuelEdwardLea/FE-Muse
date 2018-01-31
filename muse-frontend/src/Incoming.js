@@ -3,19 +3,17 @@ import './incoming.css'
 
 class Incoming extends React.Component {
   state = {
-    liked: [],
     likedYou: [],
     mutual: [],
     loading: true
   }
 
   componentWillMount() {
-    fetch('http://localhost:3000/api/user/incoming/pkcopley@gmail.com')
+    fetch(`http://localhost:3000/api/user/incoming/${this.props.email}`)
       .then(buffer => buffer.json())
-      .then(({liked, likedYou, mutual}) => {
-        console.log(liked, likedYou, mutual)
+      .then(({likedYou, mutual}) => {
+        console.log(likedYou, mutual)
         this.setState({
-          liked: liked,
           likedYou: likedYou,
           mutual: mutual,
           loading: false})
@@ -28,27 +26,14 @@ class Incoming extends React.Component {
     {!this.state.loading ? 
     (
       <ul style={{color: 'white', position: 'relative', top: '200px'}}>
-      {this.state.liked.length? ( 
-        <div>
-          <p><strong> You've liked:</strong> </p>
-        {this.state.liked.map(user => (
-          <ul>
-            <li> {`${user[0].Name}, ${user[0].Age}`} </li>
-            <li> {user[0].Bio} </li>
-          </ul>
-        ))}
-        </div>
-      )
-         : (null)
-      }
-
       {this.state.likedYou.length? ( 
         <div>
           <p><strong> These people have liked you:</strong> </p>
         {this.state.likedYou.map(user => (
           <ul>
-            <li> {`${user[0].Name}, ${user[0].Age}`} </li>
-            <li> {user[0].Bio} </li>
+            <li> {`${user.Name}, ${user.Age}`} </li>
+            <li> {user.Bio} </li>
+             <li> {user.matchingOn.genres.map(genre => (<p> {genre} </p>))} </li>
           </ul>
         ))}
         </div>
@@ -61,8 +46,10 @@ class Incoming extends React.Component {
           <p><strong> You've liked each other: </strong> </p>
         {this.state.mutual.map(user => (
           <ul>
-            <li> {`${user[0].Name}, ${user[0].Age}`} </li>
-            <li> {user[0].Bio} </li>
+            <li> {`${user.Name}, ${user.Age}`} </li>
+            <li> {user.Bio} </li>
+            You both like!
+            <li> {user.matchingOn.genres.map(genre => (<p> {genre} </p>))} </li>
           </ul>
         ))}
         </div>

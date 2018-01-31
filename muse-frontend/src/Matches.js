@@ -17,7 +17,7 @@ class Matches extends Component {
     fetch(`http://localhost:3000/api/user/matches/${this.state.email}`)
       .then(buffer => buffer.json())
       .then(matches => {
-        // console.log(matches)
+        console.log(matches)
         this.setState({matches: matches, loading: false})
       })
   }
