@@ -7,6 +7,7 @@ import Home from './home'
 import Profile from './profile'
 import Navbar from './Navbar'
 import Incoming from './Incoming'
+import Login from './Login'
 
 
 
@@ -19,7 +20,8 @@ const muiTheme = getMuiTheme(lightBaseTheme);
 
 class App extends Component {
   state = {
-    email: ''
+    email: '',
+    loggedIn: false
   }
 
 getEmail = (email) => {
@@ -30,7 +32,26 @@ getEmail = (email) => {
   }
 }
 
+  componentDidMount() {
+    if (/\?email=/g.test(window.location.href)) {
+      const email = window.location.href.slice(29)
+      console.log(email)
+      this.setState({
+        loggedIn: true,
+        email: email
+      })
+      
+    }
+  }
+
   render() {
+    
+    if (!this.state.loggedIn) {
+        return (
+          <Login/>
+        )
+    } else {
+
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <BrowserRouter>
@@ -53,7 +74,8 @@ getEmail = (email) => {
       </div>
       </BrowserRouter>
       </MuiThemeProvider>
-    );
+    )
+  };
   }
 }
 
