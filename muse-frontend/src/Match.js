@@ -93,10 +93,13 @@ class Match extends React.Component {
     }
 
     const music = {
-      tracks: match.matchingOn.tracks.map(track => <p>{track}</p>),
+      tracks: match.matchingOn.tracks.map(track => <p>{track.trackName}</p>),
+      id: match.matchingOn.tracks.map(track => <p>{track.trackUri}</p>),
       artists: match.matchingOn.artists.map(artist => <p>{artist}</p>),
       genres: match.matchingOn.genres.map(genre => <p>{genre}</p>)
     }
+
+
     const message = [music.tracks, music.artists, music.genres]
     
     const rateMatch = this.props.rateMatch
