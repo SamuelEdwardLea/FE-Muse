@@ -96,7 +96,7 @@ class Form extends Component {
       body: JSON.stringify({
         Email: this.state.email,
         Name: this.state.name,
-        AgeRange: this.state.ageRange,
+        AgeRange: {min: this.state.ageRange[0], max: this.state.ageRange[1]},
         Gender: this.state.gender,
         GenderPref: this.state.genderPref,
         Area: this.state.area,
