@@ -20,7 +20,7 @@ class Profile extends Component {
     bioDialogOpen: false,
     preferencesActive: false,
     preferenceVals: {
-      genderPrefs: ['Men'],
+      genderPrefs: [],
       location: ''
     }
   }
