@@ -118,7 +118,6 @@ class Form extends Component {
         marginBottom: 16,
         gridRow: 5,
         gridColumn: 1,
-        // marginLeft: 550
       },
     };
 

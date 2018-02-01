@@ -97,7 +97,7 @@
 #bioBuild {
     text-align: end;
     padding-right: 2%;
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0
 }
@@ -149,4 +149,9 @@
 
 .drawerInput input{
     text-align: center;
+}
+
+slider {
+    width: 2px;
+    /* position: relative;  */
 }

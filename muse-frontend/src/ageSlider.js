@@ -1,17 +1,12 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import InputRange from 'react-input-range';
 import './App.css';
-// import 'react-input-range/lib/css/index.css';
 
 class AgeSlider extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+state = {
       value: { min: 20, max: 40 },
     };
-  }
+  
 
   change = (event) => {console.log(event)}
   
@@ -22,6 +17,7 @@ class AgeSlider extends React.Component {
         maxValue={55}
         minValue={18}
         value={this.state.value}
+        disabled={this.props.disabled}
         onChange={(value, props) => {
           this.setState({ value });
           this.props.action(this.state.value);
