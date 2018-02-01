@@ -35,8 +35,10 @@ let tinyGenres = [];
 class ReactTag extends Component {
   componentDidMount() {
 
-    let genres = this.props.genres[0].matchingOn.genres;
-    let genresNo = this.props.genres[0].matchingOn.genres.length;
+
+    let genres = this.props.genres;
+    console.log(genres);
+    let genresNo = genres.length;
     let divisor = Math.floor(genresNo / 4);
 
     let editableGenres = [];
