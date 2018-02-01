@@ -26,7 +26,7 @@ class Form extends Component {
     email: this.props.email,
     name: '',
     age: 0,
-    ageRange: [20, 40],
+    ageRange: {min: 20, max: 40},
     gender: 'Female',
     genderPref: [],
     area: ''
@@ -56,7 +56,7 @@ class Form extends Component {
 
   ageSlider = (event) => {
     this.setState({
-      ageRange: [event.min, event.max]
+      ageRange: {min: event.min, max: event.max}
     })
   }
 
