@@ -126,27 +126,18 @@ class Match extends React.Component {
             <div className="profile-image" style={{
               gridColumn: '1/3',
               gridRow: '2/5',
+              padding: 'none'              
             }}>
 
-              <ListItem
-                disabled={true}
-                style={{ position: 'relative', margin: '5vmin', padding: '0'}}
-                leftAvatar={
-                  <Avatar
-                    src={match.picture}
-                    onError={this.defaultImg}
-                    size={'25vmin'}
-                    style={{ 
+
+            <img src={match.picture} style={{ 
+              borderRadius: '50%',
               margin: 'auto',
+              padding: 'none',
+              width: '25vmin',
+              height: 'auto',
               pointerEvents: 'none', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)' 
-                    }}
-                  />
-                }
-              >
-              </ListItem>
-
-
-
+                    }}/>
 
             </div>
 
@@ -176,17 +167,20 @@ class Match extends React.Component {
 
             <div className="match-name" style={{
               gridColumn: '3/5',
-              gridRow: '2', textAlign: 'left'
+              gridRow: '2', textAlign: 'center', margin: 'auto', color: 'black'
             }}>
-              <h1 style={{ position: 'relative', top: '27px', fontFamily: 'Hind Siliguri,  sans-serif' }}>{match.Name}</h1>
+              <h1 style={{textAlign: 'center',
+verticalAlign: 'middle', width: "100%", top: '27px', fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "7vmin", color: 'red'}}>{match.Name}</h1>
             </div>
 
             <div className="match-bio" style={{
               gridColumn: '3/5',
               gridRow: '3/5', textAlign: 'left'
             }}>
-              <h2 style={{ fontFamily: 'Hind Siliguri, sans-serif' }}>{match.Age}</h2>
-              <h3 style={{ marginRight: '50px', fontFamily: 'Hind Siliguri, sans-serif' }}>{match.Bio}</h3>
+              <h2 style={{ textAlign: 'center',
+verticalAlign: 'middle', fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "5vmin" }}>{match.Age}</h2>
+              <h3 style={{textAlign: 'center',
+verticalAlign: 'middle', fontFamily: 'sans-serif', fontStyle: 'italic', fontSize: "3vmin" }}>{match.Bio}</h3>
 
             </div>
 

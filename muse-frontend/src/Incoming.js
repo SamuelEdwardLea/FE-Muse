@@ -162,7 +162,7 @@ class Incoming extends React.Component {
 
     return (
       (!this.state.loading) ? (
-        <div className="body" style={{ display: "grid", width: "75vw", height: "auto", marginTop: "100px", gridTemplateColumns: "1fr", gridTemplateRows: "2vh 10vh 2vh 1fr" }}>
+        <div className="body" style={{ display: "grid", width: "75vw", height: "auto", gridTemplateColumns: "1fr", gridTemplateRows: "2vh 10vh 2vh 1fr" }}>
 
           <div className="new-matches" style={{ gridRow: "1", gridColumn: "1" }}></div>
 
@@ -196,40 +196,37 @@ class Incoming extends React.Component {
 
               {/* <button className="submit">{this.state.user.Email}</button> */}
 
-              <div className="paper-column1" style={{ height: '70vh', display: "grid", gridTemplateColumns: "1fr", gridTemplateRows: "50% 8% 5% 1fr", gridRowGap: "0.5em" }}>
+              <div className="paper-column1" style={{ height: '70vh', display: "grid", gridTemplateColumns: "1fr", gridTemplateRows: "50% 1.5% 8% 5% 1fr", gridRowGap: "0.85em" }}>
 
-                <div style={{ gridRow: "1" }}>
-                  <ListItem
-                    disabled={true}
-                    style={{ objectFit: 'fill' }}
-                    leftAvatar={
-                      <Avatar
-                        src={this.state.user ? this.state.user.picture : null}
-                        onError={this.defaultImg}
-                        size={'25vmin'}
-                        style={{
-                          margin: 'auto',
-                          pointerEvents: 'none', display: 'block', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)'
-                        }} />
-                    }>
-                  </ListItem>
-                </div>
+                <div style={{ gridRow: "1", gridColumn: "1",
+              // display:'tableCell',
+              verticalAlign:'middle',
+              textAlign:'center'   
+              }}>
+               
 
-                <div style={{ gridRow: "2", fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "6vmin", margin: "auto"}}>{this.state.user.Name}</div>
-                <div style={{ gridRow: "3", fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "4vmin", margin: "auto"}}>{this.state.user.Age}, {this.state.user.Area}</div>
-                <div style={{ gridRow: "4", fontFamily: 'sans-serif', fontStyle: 'italic', fontSize: "2vmin"}}>{this.state.user.Bio}</div>
+
+
+
+               <img src={this.state.user.picture} style={{ 
+              borderRadius: '50%',
+              marginTop: '3vmin',
+              width: '75%',
+              height: 'auto',
+              pointerEvents: 'none', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)' 
+                    }}/>
+
+                  </div>
+
+                  
+
+
+                <div style={{ gridRow: "3", fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "5vmin", margin: "auto"}}>{this.state.user.Name}</div>
+                <div style={{ gridRow: "4", fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "3vmin", margin: "auto"}}>{this.state.user.Age}, {this.state.user.Area}</div>
+                <div style={{ gridRow: "5", fontFamily: 'sans-serif', fontStyle: 'italic', fontSize: "2vmin"}}>{this.state.user.Bio}</div>
               </div>
 
-
-
-
-
-              <div className="paper-column2" style={{ height: '70vh', display: "grid", gridTemplateColumns: "30% 1fr", gridTemplateRows: "33% 33% 33%", overflow: "scroll" }}>
-
-
-
-
-
+              <div className="paper-column2" style={{ height: '70vh', display: "grid", gridTemplateColumns: "30% 1fr", gridTemplateRows: "10% 10% 10%", overflow: "scroll" }}>
 
                 <div className="tracks-button" style={{ gridColumn: "1", gridRow: "1" }} >
 
@@ -341,7 +338,9 @@ class Incoming extends React.Component {
                     <div className="blob" style={{ backgroundColor: "grey", display: this.state.genresDisplay }}> {/* DON'T GIVE THIS A HEIGHT */}
 
                       HELLO?
-                      <ReactTag genres={this.state.mutual} />
+                      {/* <ReactTag genres={this.state.mutual} /> */}
+                      <ReactTag genres={this.state.user.matchingOn.genres} />
+                      
 
                     </div>
 

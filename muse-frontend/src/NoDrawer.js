@@ -32,11 +32,14 @@ export default class DrawerUndockedExample extends React.Component {
           containerStyle={{height: '300px', marginTop: '25vh', borderTopRightRadius: '20px', borderBottomRightRadius: '20px'}}
           >
           <br /> <br /> <br /> <br /> <br /> <br /> 
-          <MenuItem onClick={this.handleClose} style={{backgroundColor: "red", marginLeft: 'auto', marginRight: 'auto'}}>No :'(</MenuItem>
+          <MenuItem onClick={this.handleClose}><img src="https://image.flaticon.com/icons/svg/70/70485.svg"/></MenuItem>
         </Drawer>
       </div>
     );
 
+
+
+    
 
   }
 }
