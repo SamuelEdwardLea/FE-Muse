@@ -8,6 +8,8 @@ import Paper from 'material-ui/Paper';
 import ListItem from 'material-ui/List/ListItem';
 import { Collapse } from 'react-collapse';
 import ReactTag from './ReactTag.js'
+import RaisedButton from 'material-ui/RaisedButton/RaisedButton';
+import {NavLink} from 'react-router-dom'
 
 
 
@@ -73,8 +75,21 @@ class Incoming extends React.Component {
     }
   }
 
+  defaultImg = (event) => {
+    event.target.src="https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170"
+  }
+
 
   render() {
+
+    if (!this.state.user) {
+      return (
+        <div>
+        <p style={{marginTop: '400px', color: 'rgb(38, 206, 44)', fontWeight: 'bold', fontSize: '20px'}}>Sorry,you've not matched anybody yet!<br/><br/> Why not see some people with good music taste?<br/></p>
+        <NavLink to="/"><RaisedButton label="Get swiping!" backgroundColor="rgb(38, 206, 44)"/></NavLink>
+        </div>
+      )
+    }
 
     const cloudStyles = {
       large: {
@@ -160,7 +175,7 @@ class Incoming extends React.Component {
                     style={{ objectFit: 'fill' }}
                     leftAvatar={
                       <Avatar
-                        src={this.state.user.picture}
+                        src={this.state.user ? this.state.user.picture : null}
                         onError={this.defaultImg}
                         size={200}
                         style={{

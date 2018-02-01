@@ -203,7 +203,7 @@ class Match extends React.Component {
   }
 
   defaultImg = (event) => {
-    event.target.src = 'https://s-media-cache-ak0.pinimg.com/736x/0e/b7/3f/0eb73fd0a870b647d7757bc3d979cb99--ed-sheeran-memes-random-stuff.jpg'
+    event.target.src = 'https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170'
   }
 }
 
