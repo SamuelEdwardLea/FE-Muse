@@ -102,7 +102,7 @@
 #bioBuild {
     text-align: end;
     padding-right: 2%;
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0
 }
