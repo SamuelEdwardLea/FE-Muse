@@ -34,7 +34,7 @@ getEmail = (email) => {
     if (/\?email=/g.test(window.location.href)) {
 
       const email = window.location.href.slice(40)
-      console.log(this.props)
+      // console.log(this.props)
       this.setState({
         loggedIn: true,
         email: email

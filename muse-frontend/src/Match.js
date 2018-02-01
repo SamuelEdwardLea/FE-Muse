@@ -20,7 +20,7 @@ class Match extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match)
+    // console.log(this.props.match)
     if (document.getElementById('card') === null) return
     const card = (document.getElementById('card'))
     const swipeableImg = new Hammer(card)

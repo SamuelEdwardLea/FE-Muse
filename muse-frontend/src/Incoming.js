@@ -7,6 +7,10 @@ import PlayWidget from 'react-spotify-widgets';
 import Paper from 'material-ui/Paper';
 import ListItem from 'material-ui/List/ListItem';
 import { Collapse } from 'react-collapse';
+import ReactTag from './ReactTag.js'
+
+
+
 
 class Incoming extends React.Component {
   state = {
@@ -14,7 +18,13 @@ class Incoming extends React.Component {
     mutual: [],
     loading: true,
     user: [],
-    opened: true
+    opened: true,
+    isOpened: false,
+    tracksIsOpened: false,
+    artistsIsOpened: false,
+    genresIsOpened: false,
+    genresDisplay: 'none'
+    // slideHeight: 9000
   }
 
   componentWillMount() {
@@ -29,6 +39,20 @@ class Incoming extends React.Component {
         })
       })
   }
+
+  displayChanger = (event) => {
+    if (this.state.genresDisplay === 'none') {
+      this.setState({
+        genresDisplay: 'block'
+      })
+     } else {
+      this.setState({
+        genresDisplay: 'none'
+      })
+      }
+    }
+  
+
 
   clickedAvatar = (user) => {
     this.setState({
@@ -51,6 +75,27 @@ class Incoming extends React.Component {
 
 
   render() {
+
+    const cloudStyles = {
+      large: {
+        fontSize: 60,
+        fontWeight: 'bold'
+      },
+      small: {
+        opacity: 0.7,
+        fontSize: 16
+      }
+    };
+
+
+
+
+    const { isOpened } = this.state;
+    const { tracksIsOpened } = this.state;
+    const { artistsIsOpened } = this.state;
+    const { genresIsOpened } = this.state;
+
+
     const responsive = {
       0: {
         items: 6
@@ -60,7 +105,7 @@ class Incoming extends React.Component {
     const paperStyle = {
       position: 'relative',
       // left: '270px',
-      height: '70vh',
+      height: '100%',
       width: '60vw',
       margin: 20,
       textAlign: 'center',
@@ -73,8 +118,10 @@ class Incoming extends React.Component {
 
     return (
       (!this.state.loading) ? (
-        <div className="body" style={{ display: "grid", width: "75vw", marginTop: "100px", gridTemplateColumns: "1fr", gridTemplateRows: "8vh 24vh 8vh 1fr" }}>
+        <div className="body" style={{ display: "grid", width: "75vw", height: "auto", marginTop: "100px", gridTemplateColumns: "1fr", gridTemplateRows: "2vh 10vh 2vh 1fr" }}>
+
           <div className="new-matches" style={{ gridRow: "1", gridColumn: "1" }}></div>
+
           {this.state.mutual.length ? (
             <div className="carousel-div" style={{ gridRow: "2", gridColumn: "1" }}>
               <AliceCarousel
@@ -89,7 +136,7 @@ class Incoming extends React.Component {
                   <Avatar
                     src={user.picture}
                     onError={this.defaultImg}
-                    size={100}
+                    size={70}
                     onClick={() => this.clickedAvatar(user)}
                   />
                 ))}
@@ -98,7 +145,7 @@ class Incoming extends React.Component {
           ) : (null)}
           <div className="gap" style={{ gridRow: "3", gridColumn: "1" }}></div>
 
-          <div className="user-info" style={{ gridRow: "4", gridColumn: "1" }}>
+          <div className="user-info" style={{ gridRow: "4", gridColumn: "1", margin: 'auto' }}>
 
             <Paper style={paperStyle} zDepth={5} rounded={false}>
 
@@ -106,11 +153,11 @@ class Incoming extends React.Component {
               {/* <button className="submit">{this.state.user.Email}</button> */}
 
               <div className="paper-column1" style={{ height: '70vh', display: "grid", gridTemplateColumns: "1fr", gridTemplateRows: "50% 8% 5% 1fr" }}>
-                <div style={{ gridRow: "1", display: 'block' }}>
 
+                <div style={{ gridRow: "1" }}>
                   <ListItem
                     disabled={true}
-                    style={{ display: 'block' }}
+                    style={{ objectFit: 'fill' }}
                     leftAvatar={
                       <Avatar
                         src={this.state.user.picture}
@@ -122,36 +169,109 @@ class Incoming extends React.Component {
                     }>
                   </ListItem>
                 </div>
+
                 <div style={{ gridRow: "2" }}>{this.state.user.Name}</div>
                 <div style={{ gridRow: "3" }}>{this.state.user.Age}, {this.state.user.Area}</div>
                 <div style={{ gridRow: "4" }}>{this.state.user.Bio}</div>
               </div>
 
 
-              <div className="paper-column2" style={{ height: '70vh', display: "grid", gridTemplateColumns: "1fr" }}>
-
-                <button className="slide-toggle" onClick={this.toggleSlide}>CLICK ME</button>
-
-                <Collapse isOpened={this.state.opened}>
-                  <div>
-                    <div className='App'>
-
-
-                      {this.state.user.matchingOn.tracks.map((track, i) => (
-                        <PlayWidget
-                          width={300}
-                          height={80}
-                          uri={track.songUri} />
-                      ))}
 
 
 
+              <div className="paper-column2" style={{ height: '70vh', display: "grid", gridTemplateColumns: "30% 1fr", gridTemplateRows: "33% 33% 33%", overflow: "scroll" }}>
 
+                  <div className="tracks-button" style={{ gridColumn: "1", gridRow: "1" }} >
+                    <label className="label" style={{ position: "relative", backgroundColor: "white", width: '100%' }}>
+                      Tracks:
+            <input className="input"
+                        type="checkbox"
+                        checked={tracksIsOpened}
+                        onChange={({ target: { checked } }) => this.setState({ tracksIsOpened: checked })} />
+                    </label>
+                  </div>
+
+                  <div className="tracks-dropdown" style={{ gridColumn: "2", gridRow: "1" }}>
+                    <Collapse isOpened={tracksIsOpened} style={{ overflow: 'scroll', backgroundColor: "white" }}>
+                      <div className="blob"> {/* DON'T GIVE THIS A HEIGHT */}
+                        {this.state.user.matchingOn.tracks.map((track, i) => (
+                          <PlayWidget
+                            width={300}
+                            height={80}
+                            uri={track.songUri}
+                            lightTheme={true} />
+                        ))}
+                      </div>
+                    </Collapse>
+                </div>
+
+                {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
+
+
+
+                <div className="artists-button" style={{ gridColumn: "1", gridRow: "2" }} >
+
+                    <label className="label">
+                      Artists:
+<input className="input"
+                        type="checkbox"
+                        checked={artistsIsOpened}
+                        onChange={({ target: { checked } }) => this.setState({ artistsIsOpened: checked })} />
+                    </label>
+                  </div>
+
+
+                  <div className="artists-dropdown" style={{ gridColumn: "2", gridRow: "2", zIndex: "999" }}>
+                  <Collapse isOpened={artistsIsOpened} style={{ overflow: 'scroll', backgroundColor: "white"}}>
+                    <div className="blob" style={{backgroundColor: "blue"}}> {/* DON'T GIVE THIS A HEIGHT */}
+
+                 
+                    {this.state.user.matchingOn.artists.map((artist, i) => (
+                         <p>{artist}</p>
+                        ))}
 
                     </div>
+                  </Collapse>
+                </div>
 
+
+                {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
+
+
+
+                  <div className="genres -button" style={{ gridColumn: "1", gridRow: "3" }}>
+                    <label className="label">
+                      Genres:
+<input className="input"
+                        type="checkbox"
+                        checked={genresIsOpened}
+                        onChange={this.displayChanger} />
+                    </label>
                   </div>
-                </Collapse>
+
+                  
+                  <div className="genres-dropdown" style={{ gridColumn: "2", gridRow: "3", position: "relative" }}>
+                  <Collapse isOpened={genresIsOpened} style={{ overflow: 'scroll', backgroundColor: "white" }}>
+                    <div className="blob" style={{backgroundColor: "grey", display: this.state.genresDisplay}}> {/* DON'T GIVE THIS A HEIGHT */}
+
+                      HELLO?
+                      <ReactTag genres={this.state.mutual} />
+                    
+                    </div>
+
+                  </Collapse>
+                </div>
+
+
+
+                {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
+
+
+
+
+
+
+
 
               </div>
 
@@ -182,3 +302,14 @@ class Incoming extends React.Component {
 
 
 export default Incoming
+
+
+
+{/* <div className='App' >
+{this.state.user.matchingOn.tracks.map((track, i) => (
+  <PlayWidget
+    width={300}
+    height={80}
+    uri={track.songUri} />
+))}
+</div> */}
