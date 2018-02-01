@@ -9,6 +9,7 @@ import Divider from 'material-ui/Divider'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import DropDownMenuSimpleExample from './Menu'
 import TextField from 'material-ui/TextField'
+import AgeSlider from './ageSlider.js';
 
 
 class Profile extends Component {
@@ -21,7 +22,8 @@ class Profile extends Component {
     preferencesActive: false,
     preferenceVals: {
       genderPrefs: ['Men'],
-      location: ''
+      location: '',
+      ageRange: []
     }
   }
 
@@ -47,6 +49,16 @@ class Profile extends Component {
     })
   }
 
+  ageSlider = (event) => {
+    this.setState({
+      preferenceVals: {
+        genderPrefs: this.state.preferenceVals.genderPrefs,
+        location: this.state.preferenceVals.location, 
+        ageRange: [event.min, event.max]
+      } 
+    })
+  }
+
 
   fetchUserProfile = (email) => {
     return fetch(`http://localhost:3000/api/user/profile/${email}`)
@@ -54,8 +66,13 @@ class Profile extends Component {
       .then(userProfile => {
         this.setState({
           userProfile: userProfile,
-          loading: false
-        })
+          loading: false,
+            preferenceVals: {
+              genderPrefs: userProfile.GenderPreference,
+              location: userProfile.Area,
+              ageRange: [userProfile.AgeRange[0].min, userProfile.AgeRange[0].max]
+            }
+          })
       })
   }
 
@@ -68,7 +85,6 @@ class Profile extends Component {
   render() {
     return this.state.loading ? (<p> loading.... </p>) :
       (
-        // <div className="container">
         <div className="profilePage">
           <div className="titleContainer">
             <p className="title">Your Profile</p>
@@ -105,9 +121,9 @@ class Profile extends Component {
             <Drawer open={this.state.draweropen}>
               <MenuItem className="aboutLabel" style={{ color: '#1db954' }}><strong>About</strong><i id="menuBuild" onClick={this.toggleEditing} className="material-icons">build</i></MenuItem>
               <MenuItem><strong>Gender</strong> </MenuItem>
-              <Divider />
               <MenuItem>{this.state.userProfile.Gender}</MenuItem>
-              <MenuItem><strong>Gender Preference</strong></MenuItem>
+              <Divider />
+              <p><strong>Gender Preference</strong></p>
               {!this.state.preferencesActive ? (
                 <MenuItem>{this.state.userProfile.GenderPreference.reduce((acc, item) => {
                   {
@@ -125,12 +141,18 @@ class Profile extends Component {
                   </MenuItem>
                 )}
 
+              <p><strong>Age Range</strong></p>
+              {!this.state.preferencesActive ? (
+            <AgeSlider disabled={true} action={this.ageSlider.bind(this)} />
+          ) : (
+              <AgeSlider disabled={false} action={this.ageSlider.bind(this)} />
+          )}
               <Divider />
               <MenuItem><strong> Location</strong> </MenuItem>
               {!this.state.preferencesActive ? (
                 <MenuItem>{this.state.userProfile.Area}</MenuItem>
               ) : (
-                  <div className="drawerInput">
+                <div className="drawerInput">
                     <TextField defaultValue={this.state.userProfile.Area} onChange={this.drawerInput}></TextField>
                     <RaisedButton label="Save" onClick={this.saveDetails}></RaisedButton>
                   </div>
@@ -141,7 +163,6 @@ class Profile extends Component {
             <BioDialog oldBio={this.state.userProfile.Bio} handleBioToggle={this.handleBioToggle} dialogueopen={this.state.bioDialogOpen} submitBio={this.submitBio}></BioDialog>
           </div>
         </div>
-        // </div>
       )
   }
 
@@ -149,7 +170,8 @@ class Profile extends Component {
     this.setState({
       preferenceVals: {
         location: event.target.value,
-        genderPrefs: this.state.preferenceVals.genderPrefs
+        genderPrefs: this.state.preferenceVals.genderPrefs,
+        ageRange: this.state.preferenceVals.ageRange
       }
     })
   }
@@ -158,7 +180,8 @@ class Profile extends Component {
     this.setState({
       preferenceVals: {
         genderPrefs: value,
-        location: this.state.location
+        location: this.state.preferenceVals.location,
+        ageRange: this.state.preferenceVals.ageRange
       }
     })
   }
@@ -215,7 +238,8 @@ class Profile extends Component {
       method: 'PATCH',
       body: JSON.stringify({
         genderPrefs: this.state.preferenceVals.genderPrefs,
-        location: location
+        location: location,
+        ageRange: this.state.preferenceVals.ageRange
       })
     })
       .then(buffer => buffer.json())

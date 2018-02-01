@@ -155,3 +155,8 @@
 .drawerInput input{
     text-align: center;
 }
+
+slider {
+    width: 2px;
+    /* position: relative;  */
+}
