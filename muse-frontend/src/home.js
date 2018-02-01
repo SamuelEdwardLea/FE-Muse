@@ -6,7 +6,7 @@ class Home extends Component {
   
 
   componentDidMount = () => {
-    console.log(this.props, 'home');
+    // console.log(this.props, 'home');
     let currentEmail = this.props.location.search.slice(7);
     this.props.getEmail(currentEmail);
   }

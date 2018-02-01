@@ -33,8 +33,7 @@ getEmail = (email) => {
 
   componentDidMount() {
     if (/\?email=/g.test(window.location.href)) {
-      const email = window.location.href.slice(40)
-      
+      const email = window.location.href.slice(40)    
       return fetch(`http://localhost:3000/api/user/profile/${email}`)
       .then(buffer => buffer.json())
       .then(userProfile => {

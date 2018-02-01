@@ -25,7 +25,6 @@ class Matches extends Component {
   }
 
   render() {
-    console.log(this.state.matches)
     if (this.state.currentMatch === this.state.matches.length) {
       return (
         <div>
@@ -34,6 +33,7 @@ class Matches extends Component {
         </div>
       )
     } 
+
     return (
       <div>
          <NoDrawer swipe={this.state.decision}/>
