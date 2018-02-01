@@ -23,7 +23,7 @@ class Profile extends Component {
     preferenceVals: {
       genderPrefs: ['Men'],
       location: '',
-      ageRange: []
+      ageRange: {min: 0, max: 0}
     }
   }
 
@@ -54,7 +54,7 @@ class Profile extends Component {
       preferenceVals: {
         genderPrefs: this.state.preferenceVals.genderPrefs,
         location: this.state.preferenceVals.location, 
-        ageRange: [event.min, event.max]
+        ageRange: {min: event.min, max: event.max}
       } 
     })
   }
@@ -70,7 +70,7 @@ class Profile extends Component {
             preferenceVals: {
               genderPrefs: userProfile.GenderPreference,
               location: userProfile.Area,
-              ageRange: [userProfile.AgeRange[0].min, userProfile.AgeRange[0].max]
+              ageRange: {min: userProfile.AgeRange[0].min, max: userProfile.AgeRange[0].max}
             }
           })
       })
