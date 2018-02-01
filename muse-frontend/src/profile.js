@@ -119,8 +119,8 @@ class Profile extends Component {
               ) : (
                   <MenuItem>
                     <DropDownMenu selectionRenderer={this.cb} onChange={this.handleChange} multiple='true' value={this.state.preferenceVals.genderPrefs} openImmediately={true}>
-                      <MenuItem value="Men" primaryText="Men"></MenuItem>
-                      <MenuItem value="Women" primaryText="Women"></MenuItem>
+                      <MenuItem value="Male" primaryText="Male"></MenuItem>
+                      <MenuItem value="Female" primaryText="Female"></MenuItem>
                     </DropDownMenu>
                   </MenuItem>
                 )}
