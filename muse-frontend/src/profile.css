@@ -2,13 +2,16 @@
     display: flex;  
     justify-content: center;
 }
+
 .profilePage {
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 50%;
     min-width: 800px;
+    margin:auto;
     background-color: #f8f8f8;
-    height: 100%;
+    /* height: 100%; */
 }
 .headerPic{
     justify-content: center;
