@@ -133,7 +133,7 @@ class Incoming extends React.Component {
 
     return (
       (!this.state.loading) ? (
-        <div className="body" style={{ display: "grid", width: "75vw", height: "auto", marginTop: "100px", gridTemplateColumns: "1fr", gridTemplateRows: "2vh 10vh 2vh 1fr" }}>
+        <div className="body" style={{ display: "grid", width: "75vw", height: "auto", gridTemplateColumns: "1fr", gridTemplateRows: "2vh 10vh 2vh 1fr" }}>
 
           <div className="new-matches" style={{ gridRow: "1", gridColumn: "1" }}></div>
 
