@@ -160,7 +160,7 @@ class Profile extends Component {
   }
 
   submitPic = (url) => {
-    fetch(`http://localhost:3000/api/user/profile/picture/${'pkcopley@gmail.com'}`, {
+    fetch(`http://localhost:3000/api/user/profile/picture/${this.props.email}`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -180,7 +180,7 @@ class Profile extends Component {
   }
 
   submitBio = (bio) => {
-    fetch(`http://localhost:3000/api/user/profile/bio/${'pkcopley@gmail.com'}`, {
+    fetch(`http://localhost:3000/api/user/profile/bio/${this.props.email}`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -203,7 +203,7 @@ class Profile extends Component {
     console.log(this.state.preferenceVals)
     if (this.state.preferenceVals.genderPrefs.length === 0 ) return 
     const location = this.state.preferenceVals.location || this.state.userProfile.Area
-    fetch(`http://localhost:3000/api/user/profile/preferences/${'pkcopley@gmail.com'}`, {
+    fetch(`http://localhost:3000/api/user/profile/preferences/${this.props.email}`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
