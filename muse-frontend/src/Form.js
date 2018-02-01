@@ -26,7 +26,7 @@ class Form extends Component {
     email: this.props.email,
     name: '',
     age: 0,
-    ageRange: [],
+    ageRange: [20, 40],
     gender: 'Female',
     genderPref: [],
     area: ''
@@ -86,6 +86,7 @@ class Form extends Component {
 
   validateForm = () => {
     console.log('getting here!', this.state.email)
+    console.log(this.state.ageRange)
     return fetch(`http://localhost:3000/api/user/profile/${this.state.email}`, {
       headers: {
         'Accept': 'application/json',
@@ -95,13 +96,14 @@ class Form extends Component {
       body: JSON.stringify({
         Email: this.state.email,
         Name: this.state.name,
-        AgeRange: this.state.ageRange,
+        AgeRange: {min: this.state.ageRange[0], max: this.state.ageRange[1]},
         Gender: this.state.gender,
         GenderPref: this.state.genderPref,
         Area: this.state.area,
         Age: this.state.age,
       })
     })
+      .then(buffer => this.props.formCompleted())
       .catch(console.log)
   }
 

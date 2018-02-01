@@ -217,3 +217,15 @@ ul {
     height: 0;
   }
   
+  .loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .loginContainer p {
+    color: rgb(38, 206, 44);
+    font-weight: bold;
+    font-size: 75px;
+  }

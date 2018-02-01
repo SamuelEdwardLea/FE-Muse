@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import Match from './Match';
 import NoDrawer from './NoDrawer.js'
 import YesDrawer from './YesDrawer.js'
+import RaisedButton from 'material-ui/RaisedButton/RaisedButton';
+import {NavLink} from 'react-router-dom'
 
 class Matches extends Component {
   state = {
@@ -23,10 +25,16 @@ class Matches extends Component {
   }
 
   render() {
-    // console.log(this.state.matches)
+    if (this.state.currentMatch === this.state.matches.length) {
+      return (
+        <div>
+        <p style={{marginTop: '400px', color: 'rgb(38, 206, 44)', fontWeight: 'bold', fontSize: '20px'}}>Sorry, we've no more people at the moment.<br/><br/> Why not view your matches whilst people get better taste in music?<br/></p>
+        <NavLink to="/incoming"><RaisedButton label="View your Matches instead" backgroundColor="rgb(38, 206, 44)"/></NavLink>
+        </div>
+      )
+    } 
+
     return (
-
-
       <div>
          <NoDrawer swipe={this.state.decision}/>
       <YesDrawer swipe={this.state.decision}/>
