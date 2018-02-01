@@ -96,19 +96,19 @@ class ReactTag extends Component {
             }}>
 
             {bigGenres.map((genre, i) => (
-              <div style={styles.big}>{genre}</div>
+              <div key={i} style={styles.big}>{genre}</div>
             ))}
 
             {mediumGenres.map((genre, i) => (
-              <div style={styles.medium}>{genre}</div>
+              <div key={i} style={styles.medium}>{genre}</div>
             ))}
 
             {smallGenres.map((genre, i) => (
-              <div style={styles.small}>{genre}</div>
+              <div key={i} style={styles.small}>{genre}</div>
             ))}
 
             {tinyGenres.map((genre, i) => (
-              <div style={styles.tiny}>{genre}</div>
+              <div key={i} style={styles.tiny}>{genre}</div>
             ))}
 
             {/* <div style={styles.big}>Beaner</div>
