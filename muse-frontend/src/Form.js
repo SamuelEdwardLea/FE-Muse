@@ -136,44 +136,43 @@ class Form extends Component {
     });
 
     return (
+<div>
       <BrowserRouter>
-
         <form className="formContainer" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gridTemplateRows: 'repeat(11, 1fr)' }}>
-          <div style={{ gridColumn: "2/5", gridRow: "3" }}>
+          <div style={{ gridColumn: "2/5", gridRow: "2" }}>
             <div style={{ width: "10vw", height: "auto", backgroundColor: "blue" }} />
-
             <TextField
               errorText={(this.state.name.match(/[0-9]/g)) ? "NO!" : null}
               type="text"
               hintText="eg. David"
               floatingLabelText="Your name"
               onBlur={this.name.bind(this)}
-            />
+              />
             <br />
           </div>
 
           <br />
 
-          <div style={{ gridColumn: "2/5", gridRow: "6" }}>
+          <div style={{ gridColumn: "2/5", gridRow: "4" }}>
             <div style={{ width: "10px", height: "auto", backgroundColor: "red" }} />
             <TextField
               errorText={(this.state.name.match(/[0-9]/g)) ? "NO!" : null}
               hintText="eg. Manchester, London, Paris etc."
               floatingLabelText="Your location"
               onBlur={this.area.bind(this)}
-            /><br />
+              /><br />
           </div>
 
-          <div style={{ gridColumn: "2/5", gridRow: "4" }}>
+          <div style={{ gridColumn: "2/5", gridRow: "3" }}>
             <TextField
               hintText="eg. 25"
               floatingLabelText="Your Age"
               onBlur={this.age.bind(this)}
-            /><br />
+              /><br />
           </div>
 
           <div style={{ gridColumn: "2/5", gridRow: "5" }}>
-            <DropDownMenu value={this.state.gender} onChange={this.gender.bind(this)} autoWidth={false}>
+            <DropDownMenu value={this.state.gender} onChange={this.gender.bind(this)} autoWidth={false} style={{paddingTop: "30px"}}>
               <MenuItem value="Male" primaryText="Male" checked={this.genderCheck} />
               <MenuItem value="Female" primaryText="Female" checked={this.genderCheck} />
             </DropDownMenu>
@@ -184,44 +183,50 @@ class Form extends Component {
           <br />
           <br />
 
+ <div style={{ gridColumn: "2/ span 2", gridRow: "8"}}>
+          <p style={{marginRight: "50px", }}>Age range:</p>
+</div>
           <div className="age-slider" style={{ gridColumn: "2/5", gridRow: "9", alignItems: "end" }}>
             <AgeSlider action={this.ageSlider.bind(this)} />
           </div>
 
           <br />
           <br />
-
-          <div style={{ gridColumn: "3", gridRow: "8", alignItems: "end" }}>
-            <RadioButtonGroup className="genderButtons" defaultSelected="not_light" onChange={this.genderChange.bind(this)} >
+<div style={{ gridColumn: "2/ span 2", gridRow: "7"}}>
+          <p style={{marginRight: "50px", }}>Interested in:</p>
+</div>
+          <div style={{ gridColumn: "3", gridRow: "7", alignItems: "end", paddingTop: "50px" }}>
+            <RadioButtonGroup className="genderButtons" labelPosition="right" onChange={this.genderChange.bind(this)} >
               <RadioButton
                 value="Female"
                 label="Women"
                 checkedIcon={<ActionFavorite style={{ color: '#F44336' }} />}
                 uncheckedIcon={<ActionFavoriteBorder />}
                 style={styles.radioButton}
-                labelStyle={{ position: 'relative', right: '300px' }}
-              />
+                // labelStyle={{ position: 'relative', right: '300px' }}
+                />
               <RadioButton
                 value="Male"
                 label="Men"
                 checkedIcon={<ActionFavorite style={{ color: '#F44336' }} />}
                 uncheckedIcon={<ActionFavoriteBorder />}
                 style={styles.radioButton}
-                labelStyle={{ position: 'relative', right: '300px' }}
-              />
+                // labelStyle={{ position: 'relative', right: '300px' }}
+                />
               <RadioButton
                 value="both"
                 label="Both"
                 checkedIcon={<ActionFavorite style={{ color: '#F44336' }} />}
                 uncheckedIcon={<ActionFavoriteBorder />}
                 style={styles.radioButton}
-                labelStyle={{ position: 'relative', right: '300px' }}
-              />
+                labelStyle={{ paddingBottom: "50px" }}
+                />
             </RadioButtonGroup>
           </div>
 
           <br />
           <br />
+
 
           <div style={{ gridColumn: "2/5", gridRow: "10" }}>
             <MuiThemeProvider muiTheme={muiTheme} >
@@ -237,6 +242,7 @@ class Form extends Component {
         </form>
 
       </BrowserRouter>
+                </div>
     )
   }
 
