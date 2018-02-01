@@ -8,6 +8,9 @@ import Paper from 'material-ui/Paper';
 import ListItem from 'material-ui/List/ListItem';
 import { Collapse } from 'react-collapse';
 import ReactTag from './ReactTag.js'
+import RaisedButton from 'material-ui/RaisedButton/RaisedButton';
+import { NavLink } from 'react-router-dom'
+import Toggle from 'material-ui/Toggle';
 
 
 
@@ -45,13 +48,13 @@ class Incoming extends React.Component {
       this.setState({
         genresDisplay: 'block'
       })
-     } else {
+    } else {
       this.setState({
         genresDisplay: 'none'
       })
-      }
     }
-  
+  }
+
 
 
   clickedAvatar = (user) => {
@@ -73,8 +76,47 @@ class Incoming extends React.Component {
     }
   }
 
+  defaultImg = (event) => {
+    event.target.src = "https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170"
+  }
+
 
   render() {
+
+    if (!this.state.user) {
+      return (
+        <div>
+          <p style={{ marginTop: '400px', color: 'rgb(38, 206, 44)', fontWeight: 'bold', fontSize: '20px' }}>Sorry,you've not matched anybody yet!<br /><br /> Why not see some people with good music taste?<br /></p>
+          <NavLink to="/"><RaisedButton label="Get swiping!" backgroundColor="rgb(38, 206, 44)" /></NavLink>
+        </div>
+      )
+    }
+
+
+    const toggleStyles = {
+      block: {
+        maxWidth: 250,
+      },
+      toggle: {
+        marginBottom: 16,
+      },
+      thumbOff: {
+        backgroundColor: '#ffcccc',
+      },
+      trackOff: {
+        backgroundColor: '#ff9d9d',
+      },
+      thumbSwitched: {
+        backgroundColor: 'red',
+      },
+      trackSwitched: {
+        backgroundColor: '#ff9d9d',
+      },
+      labelStyle: {
+        color: 'red',
+        fontFamily: 'sans-serif', fontStyle: 'italic'
+      },
+    };
 
     const cloudStyles = {
       large: {
@@ -94,6 +136,8 @@ class Incoming extends React.Component {
     const { tracksIsOpened } = this.state;
     const { artistsIsOpened } = this.state;
     const { genresIsOpened } = this.state;
+    const { genresDisplay } = this.state;
+
 
 
     const responsive = {
@@ -152,7 +196,7 @@ class Incoming extends React.Component {
 
               {/* <button className="submit">{this.state.user.Email}</button> */}
 
-              <div className="paper-column1" style={{ height: '70vh', display: "grid", gridTemplateColumns: "1fr", gridTemplateRows: "50% 8% 5% 1fr" }}>
+              <div className="paper-column1" style={{ height: '70vh', display: "grid", gridTemplateColumns: "1fr", gridTemplateRows: "50% 8% 5% 1fr", gridRowGap: "0.5em" }}>
 
                 <div style={{ gridRow: "1" }}>
                   <ListItem
@@ -160,19 +204,20 @@ class Incoming extends React.Component {
                     style={{ objectFit: 'fill' }}
                     leftAvatar={
                       <Avatar
-                        src={this.state.user.picture}
+                        src={this.state.user ? this.state.user.picture : null}
                         onError={this.defaultImg}
-                        size={200}
+                        size={'25vmin'}
                         style={{
+                          margin: 'auto',
                           pointerEvents: 'none', display: 'block', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)'
                         }} />
                     }>
                   </ListItem>
                 </div>
 
-                <div style={{ gridRow: "2" }}>{this.state.user.Name}</div>
-                <div style={{ gridRow: "3" }}>{this.state.user.Age}, {this.state.user.Area}</div>
-                <div style={{ gridRow: "4" }}>{this.state.user.Bio}</div>
+                <div style={{ gridRow: "2", fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "6vmin", margin: "auto"}}>{this.state.user.Name}</div>
+                <div style={{ gridRow: "3", fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "4vmin", margin: "auto"}}>{this.state.user.Age}, {this.state.user.Area}</div>
+                <div style={{ gridRow: "4", fontFamily: 'sans-serif', fontStyle: 'italic', fontSize: "2vmin"}}>{this.state.user.Bio}</div>
               </div>
 
 
@@ -181,28 +226,43 @@ class Incoming extends React.Component {
 
               <div className="paper-column2" style={{ height: '70vh', display: "grid", gridTemplateColumns: "30% 1fr", gridTemplateRows: "33% 33% 33%", overflow: "scroll" }}>
 
-                  <div className="tracks-button" style={{ gridColumn: "1", gridRow: "1" }} >
-                    <label className="label" style={{ position: "relative", backgroundColor: "white", width: '100%' }}>
-                      Tracks:
-            <input className="input"
+
+
+
+
+
+                <div className="tracks-button" style={{ gridColumn: "1", gridRow: "1" }} >
+
+
+                  {/* <input className="input"
                         type="checkbox"
                         checked={tracksIsOpened}
-                        onChange={({ target: { checked } }) => this.setState({ tracksIsOpened: checked })} />
-                    </label>
+                        onChange={({ target: { checked } }) => this.setState({ tracksIsOpened: checked })} /> */}
+                    <label className="label" style={{ position: "relative", backgroundColor: "white", width: '100%', fontFamily: 'sans-serif' }}>
+                    Tracks:
+                  <div style={toggleStyles.block}>
+                    <Toggle
+                      style={toggleStyles.toggle}
+                      toggled={tracksIsOpened}
+                      onToggle={({ target: { checked } }) => this.setState({ tracksIsOpened: checked })}
+                    />
                   </div>
+                        </label>
 
-                  <div className="tracks-dropdown" style={{ gridColumn: "2", gridRow: "1" }}>
-                    <Collapse isOpened={tracksIsOpened} style={{ overflow: 'scroll', backgroundColor: "white" }}>
-                      <div className="blob"> {/* DON'T GIVE THIS A HEIGHT */}
-                        {this.state.user.matchingOn.tracks.map((track, i) => (
-                          <PlayWidget
-                            width={300}
-                            height={80}
-                            uri={track.songUri}
-                            lightTheme={true} />
-                        ))}
-                      </div>
-                    </Collapse>
+                </div>
+
+                <div className="tracks-dropdown" style={{ gridColumn: "2", gridRow: "1" }}>
+                  <Collapse isOpened={tracksIsOpened} style={{ overflow: 'scroll', backgroundColor: "white" }}>
+                    <div className="blob"> {/* DON'T GIVE THIS A HEIGHT */}
+                      {this.state.user.matchingOn.tracks.map((track, i) => (
+                        <PlayWidget
+                          width={300}
+                          height={80}
+                          uri={track.songUri}
+                          lightTheme={true} />
+                      ))}
+                    </div>
+                  </Collapse>
                 </div>
 
                 {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
@@ -211,24 +271,36 @@ class Incoming extends React.Component {
 
                 <div className="artists-button" style={{ gridColumn: "1", gridRow: "2" }} >
 
-                    <label className="label">
-                      Artists:
-<input className="input"
+
+
+                  {/* <input className="input"
                         type="checkbox"
                         checked={artistsIsOpened}
-                        onChange={({ target: { checked } }) => this.setState({ artistsIsOpened: checked })} />
-                    </label>
+                        onChange={({ target: { checked } }) => this.setState({ artistsIsOpened: checked })} /> */}
+  <label className="label" style={{ position: "relative", backgroundColor: "white", width: '100%', fontFamily: 'sans-serif' }}>
+                    Artists:
+                  <div style={toggleStyles.block}>
+                    <Toggle
+
+                      style={toggleStyles.toggle}
+                      toggled={artistsIsOpened}
+                      onToggle={({ target: { checked } }) => this.setState({ artistsIsOpened: checked })}
+                    />
                   </div>
+                  </label>
 
 
-                  <div className="artists-dropdown" style={{ gridColumn: "2", gridRow: "2", zIndex: "999" }}>
-                  <Collapse isOpened={artistsIsOpened} style={{ overflow: 'scroll', backgroundColor: "white"}}>
-                    <div className="blob" style={{backgroundColor: "blue"}}> {/* DON'T GIVE THIS A HEIGHT */}
+                </div>
 
-                 
-                    {this.state.user.matchingOn.artists.map((artist, i) => (
-                         <p>{artist}</p>
-                        ))}
+
+                <div className="artists-dropdown" style={{ gridColumn: "2", gridRow: "2", zIndex: "999" }}>
+                  <Collapse isOpened={artistsIsOpened} style={{ overflow: 'scroll', backgroundColor: "white" }}>
+                    <div className="blob" style={{ backgroundColor: "white" }}> {/* DON'T GIVE THIS A HEIGHT */}
+
+
+                      {this.state.user.matchingOn.artists.map((artist, i) => (
+                        <p>{artist}</p>
+                      ))}
 
                     </div>
                   </Collapse>
@@ -239,24 +311,38 @@ class Incoming extends React.Component {
 
 
 
-                  <div className="genres -button" style={{ gridColumn: "1", gridRow: "3" }}>
-                    <label className="label">
-                      Genres:
-<input className="input"
+                <div className="genres-button" style={{ gridColumn: "1", gridRow: "3" }}>
+
+                  {/* Genres: */}
+
+                  {/* <input className="input"
                         type="checkbox"
                         checked={genresIsOpened}
-                        onChange={this.displayChanger} />
-                    </label>
-                  </div>
+                        onChange={this.displayChanger} /> */}
+  <label className="label" style={{ position: "relative", backgroundColor: "white", width: '100%', fontFamily: 'sans-serif' }}>
+                    Genres:
+                  <div style={toggleStyles.block}>
+                    <Toggle
 
-                  
-                  <div className="genres-dropdown" style={{ gridColumn: "2", gridRow: "3", position: "relative" }}>
+                      style={toggleStyles.toggle}
+                      // toggled={genresDisplay}
+                      onToggle={this.displayChanger}
+                    />
+                  </div>
+                  </label>
+
+
+
+                </div>
+
+
+                <div className="genres-dropdown" style={{ gridColumn: "2", gridRow: "3", position: "relative" }}>
                   <Collapse isOpened={genresIsOpened} style={{ overflow: 'scroll', backgroundColor: "white" }}>
-                    <div className="blob" style={{backgroundColor: "grey", display: this.state.genresDisplay}}> {/* DON'T GIVE THIS A HEIGHT */}
+                    <div className="blob" style={{ backgroundColor: "grey", display: this.state.genresDisplay }}> {/* DON'T GIVE THIS A HEIGHT */}
 
                       HELLO?
                       <ReactTag genres={this.state.mutual} />
-                    
+
                     </div>
 
                   </Collapse>

@@ -125,29 +125,27 @@ class Match extends React.Component {
 
             <div className="profile-image" style={{
               gridColumn: '1/3',
-              gridRow: '2/5'
+              gridRow: '2/5',
             }}>
 
               <ListItem
                 disabled={true}
+                style={{ position: 'relative', margin: '5vmin', padding: '0'}}
                 leftAvatar={
                   <Avatar
                     src={match.picture}
                     onError={this.defaultImg}
-                    size={240}
+                    size={'25vmin'}
                     style={{ 
-                      pointerEvents: 'none', marginLeft: '70px', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)' 
+              margin: 'auto',
+              pointerEvents: 'none', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)' 
                     }}
-
                   />
                 }
               >
               </ListItem>
 
-              {/* <Paper style={imagePaper} zDepth={2} circle={true}
-      elevation={4} style={{overflow:'hidden'}} >
-      <img src='https://s-media-cache-ak0.pinimg.com/736x/0e/b7/3f/0eb73fd0a870b647d7757bc3d979cb99--ed-sheeran-memes-random-stuff.jpg' style={{width:'50%', height:'auto'}}/>
-      </Paper> */}
+
 
 
             </div>
@@ -203,7 +201,7 @@ class Match extends React.Component {
   }
 
   defaultImg = (event) => {
-    event.target.src = 'https://s-media-cache-ak0.pinimg.com/736x/0e/b7/3f/0eb73fd0a870b647d7757bc3d979cb99--ed-sheeran-memes-random-stuff.jpg'
+    event.target.src = 'https://lh3.googleusercontent.com/B4Rmc8NPG7fHIGmN65214ppzNGHNa_wuLSSJ6Dz85KJoZ0zlBFnpH16pOJBHpwA0fCs=w170'
   }
 }
 

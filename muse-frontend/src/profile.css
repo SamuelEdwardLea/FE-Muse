@@ -11,12 +11,10 @@
     min-width: 800px;
     margin:auto;
     background-color: #f8f8f8;
-    /* height: 100%; */
 }
 .headerPic{
     justify-content: center;
     width: 50%;
-    /* border: solid black 1px; */
     align-items: center;
     box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
     background-color: #fff;
@@ -26,7 +24,6 @@
     position: relative;
 }
 .profilePic {
-    /* height: 100%; */
     border-radius: 50%;
     max-width: 100%;
 }
@@ -35,12 +32,10 @@
     align-items: left;
     padding-left: 2%;
     width: 50%;
-    /* border: solid black 1px; */
     font-size: 2rem;
     box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
     padding: 2%;
     background-color: #fff;
-
 }
 
 .header {
