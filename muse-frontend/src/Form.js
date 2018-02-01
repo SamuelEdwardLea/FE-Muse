@@ -41,17 +41,6 @@ class Form extends Component {
     this.setState({
       genderPref: value
     })
-
-    // if (!this.state.genderPref.includes(event.target.innerText)) {
-    //   this.setState({
-    //     genderPref: [...this.state.genderPref, event.target.innerText]
-    //   })
-    // } else {
-    //   var array = this.state.genderPref;
-    //   var index = array.indexOf(event.target.innerText);
-    //   array.splice(index, 1);
-    //   this.setState({ genderPref: array });
-    // }
   }
 
   ageSlider = (event) => {
@@ -76,14 +65,6 @@ class Form extends Component {
     this.setState({ gender: value })
   }
 
-  // genderPreference = (event) => {
-  //   if (!this.state.genderPref.includes(event.target.name)) {
-  //     this.setState({
-  //       genderPref: [...this.state.genderPref, event.target.name]
-  //     })
-  //   }
-  // }
-
   validateForm = () => {
     console.log('getting here!', this.state.email)
     console.log(this.state.ageRange)
@@ -96,7 +77,7 @@ class Form extends Component {
       body: JSON.stringify({
         Email: this.state.email,
         Name: this.state.name,
-        AgeRange: {min: this.state.ageRange[0], max: this.state.ageRange[1]},
+        AgeRange: this.state.ageRange,
         Gender: this.state.gender,
         GenderPref: this.state.genderPref,
         Area: this.state.area,
