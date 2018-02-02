@@ -33,11 +33,18 @@ let smallGenres = [];
 let tinyGenres = [];
 
 class ReactTag extends Component {
-  componentDidMount() {
 
+
+  render() {
+
+
+
+  bigGenres = [];
+  mediumGenres = [];
+  smallGenres = [];
+  tinyGenres = [];
 
     let genres = this.props.genres;
-    console.log(genres);
     let genresNo = genres.length;
     let divisor = Math.floor(genresNo / 4);
 
@@ -69,17 +76,18 @@ class ReactTag extends Component {
       editableGenres.splice(0, 1)
     }
 
-    console.log('******', bigGenres)
-    console.log('!!!!!!', mediumGenres)
-    console.log('!!!!!!', smallGenres)
-    console.log('!!!!!!', mediumGenres)
+    // console.log('******', bigGenres)
+    // console.log('!!!!!!', mediumGenres)
+    // console.log('!!!!!!', smallGenres)
+    // console.log('!!!!!!', mediumGenres)
 
     setInterval(() => {
       this.forceUpdate();
-    }, 5000);
-  }
+    }, 10000);
+  
 
-  render() {
+    console.log(this.props)
+
     return (
       <div className='app-outer'>
         <div className='app-inner'>
