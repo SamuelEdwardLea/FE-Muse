@@ -19,7 +19,11 @@ class Match extends React.Component {
     upStyle: 'slider'
   }
 
+
+
   componentDidMount() {
+
+
     // console.log(this.props.match)
     if (document.getElementById('card') === null) return
     const card = (document.getElementById('card'))
@@ -52,6 +56,8 @@ class Match extends React.Component {
     })
   }
 
+
+
   slideUp = (event) => { 
     if (this.state.upStyle === 'slider') {
       this.setState({ upStyle: 'slider.close' }) 
@@ -67,6 +73,47 @@ class Match extends React.Component {
   // }
 
   render() {
+
+    let matching1 = '';
+    let matching2 = '';
+    let matching3 = '';
+
+    if (this.props.match !== undefined) {
+
+      if ((this.props.match.matchingOn.artists.length !== 0)&&(this.props.match.matchingOn.tracks.length !== 0)&&(this.props.match.matchingOn.genres.length !== 0)) {
+          matching1 = this.props.match.matchingOn.artists[0];
+          matching2 = this.props.match.matchingOn.tracks[0];
+          matching3 = this.props.match.matchingOn.genres[0];
+      }
+    
+        if ((this.props.match.matchingOn.artists.length === 0)&&(this.props.match.matchingOn.tracks.length !== 0)&&(this.props.match.matchingOn.genres.length !== 0)) {
+            matching1 = this.props.match.matchingOn.genres[0];
+            matching2 = this.props.match.matchingOn.tracks[0];
+            matching3 = this.props.match.matchingOn.genres[1]
+        }
+    
+          if ((this.props.match.matchingOn.artists.length !== 0)&&(this.props.match.matchingOn.tracks.length === 0)&&(this.props.match.matchingOn.genres.length !== 0)) {
+              matching1 = this.props.match.matchingOn.genres[0];
+              matching2 = this.props.match.matchingOn.artists[0];
+              matching3 = this.props.match.matchingOn.genres[1]
+          }
+    
+          if ((this.props.match.matchingOn.artists.length === 0)&&(this.props.match.matchingOn.tracks.length > 0)&&(this.props.match.matchingOn.genres.length !== 0)) {
+              matching1 = this.props.match.matchingOn.tracks[0];
+              matching2 = this.props.match.matchingOn.genres[0];
+              matching3 = this.props.match.matchingOn.tracks[1]
+          }
+
+          if ((this.props.match.matchingOn.artists.length === 0)&&(this.props.match.matchingOn.tracks.length === 0)&&(this.props.match.matchingOn.genres.length !== 0)) {
+            matching1 = this.props.match.matchingOn.genres[0];
+            matching2 = this.props.match.matchingOn.genres[1];
+            matching3 = this.props.match.matchingOn.genres[2]
+        }
+    
+    }
+
+
+
 
     const paperStyle = {
       position: 'relative',
@@ -131,6 +178,8 @@ class Match extends React.Component {
 
 
             <img src={match.picture} style={{ 
+              position: 'relative',
+              bottom: '30px',
               borderRadius: '50%',
               margin: 'auto',
               padding: 'none',
@@ -139,6 +188,16 @@ class Match extends React.Component {
               pointerEvents: 'none', objectFit: 'cover', boxShadow: '0 10px 50px 0 rgba(0, 0, 0, 0.2), 5px 7px 10px 0 rgba(0, 0, 0, 0.2)' 
                     }}/>
 
+<h1 style={{fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "4vmin", position: 'relative', top: '25px', left: '230px'}}>You matched on...</h1>
+            </div>
+
+            <div className="matching-info" style={{gridRow: "5", gridColumn: "1/5"}}>
+                    <div style={{display: "grid", height: "100%", gridTemplateRows: "1", gridTemplateColumns: "1fr 1fr 1fr"}}>
+                      <div style={{fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "4vmin", color: "rgba(104, 145, 161, 0.5)", gridRow: "1", gridColumn: "1"}}>{matching1}</div>
+                      <div style={{fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "4vmin", color: "rgba(129, 79, 168, 0.5)", gridRow: "1", gridColumn: "2"}}>{matching2}</div>
+                      <div style={{fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "4vmin", color: 'rgba(85, 183, 160, 0.5)', gridRow: "1", gridColumn: "3"}}>{matching3}</div>
+                      .
+                </div>
             </div>
 
             <div className="cresc-left" style={{
@@ -166,8 +225,10 @@ class Match extends React.Component {
             }} />
 
             <div className="match-name" style={{
+               position: 'relative',
+               bottom: '20px',
               gridColumn: '3/5',
-              gridRow: '2', textAlign: 'center', margin: 'auto', color: 'black'
+              gridRow: '2', textAlign: 'center', marginRight: '400px', color: 'black'
             }}>
               <h1 style={{textAlign: 'center',
 verticalAlign: 'middle', width: "100%", top: '27px', fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "7vmin", color: 'red'}}>{match.Name}</h1>
@@ -175,12 +236,12 @@ verticalAlign: 'middle', width: "100%", top: '27px', fontFamily: 'sans-serif', f
 
             <div className="match-bio" style={{
               gridColumn: '3/5',
-              gridRow: '3/5', textAlign: 'left'
+              gridRow: '3/5', textAlign: 'left', marginRight: '400px'
             }}>
               <h2 style={{ textAlign: 'center',
-verticalAlign: 'middle', fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "5vmin" }}>{match.Age}</h2>
+verticalAlign: 'middle', fontFamily: 'sans-serif', fontStyle: 'italic', fontWeight: '700', fontSize: "5vmin", position: 'relative', bottom: '45px' }}>{match.Age}</h2>
               <h3 style={{textAlign: 'center',
-verticalAlign: 'middle', fontFamily: 'sans-serif', fontStyle: 'italic', fontSize: "3vmin" }}>{match.Bio}</h3>
+verticalAlign: 'middle', fontFamily: 'sans-serif', fontStyle: 'italic', fontSize: "3vmin" }}></h3>
 
             </div>
 
